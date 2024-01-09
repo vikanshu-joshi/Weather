@@ -1,6 +1,7 @@
 package com.vikanshu.weather.ui.screens.home
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,6 +29,7 @@ fun HomeScreen(
             HomeScreenTablet(viewModel = viewModel)
         }
     }
+    Box(modifier = modifier)
 }
 
 

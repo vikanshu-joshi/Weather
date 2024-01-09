@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -50,7 +51,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.weight(1f),
                         deviceSizeType = deviceType
                     )
-                    if (connectivityState.value == ConnectivityObserver.Status.NetworkUnavailable) {
+                    AnimatedVisibility(visible = connectivityState.value == ConnectivityObserver.Status.NetworkUnavailable) {
                         NetworkNotAvailableTile(modifier = Modifier.animateContentSize())
                     }
                 }
