@@ -35,7 +35,8 @@ data class ForecastWeather(
                 .apply { sys?.sunset?.let { timeInMillis = it.toLong() } },
             visibility = visibility ?: 0,
             windDeg = wind?.deg ?: 0,
-            windSpeed = wind?.speed ?: 0.0
+            windSpeed = wind?.speed ?: 0.0,
+            timezone = 0
         )
     }
 }

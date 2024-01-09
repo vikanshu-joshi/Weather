@@ -75,7 +75,10 @@ dependencies {
     implementation(Compose.composeToolingPreview)
     implementation(Compose.composeMaterial3)
     implementation(Compose.composeMaterial3WindowSize)
+    implementation(Compose.composeRuntimeLivedata)
+    implementation(Compose.viewModelCompose)
 
     implementation(Google.gson)
     implementation(Google.material)
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }

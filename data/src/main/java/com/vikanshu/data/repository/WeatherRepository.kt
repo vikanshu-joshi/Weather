@@ -12,23 +12,23 @@ interface WeatherRepository {
         lat: Double,
         lon: Double,
         units: String = Constants.DEFAULT_UNIT
-    ): Flow<CommunicationResult<CurrentWeatherInformation>>
+    ): CommunicationResult<CurrentWeatherInformation>
 
     suspend fun getWeatherInformation(
         q: String,
         units: String = Constants.DEFAULT_UNIT
-    ): Flow<CommunicationResult<CurrentWeatherInformation>>
+    ): CommunicationResult<CurrentWeatherInformation>
 
 
     suspend fun getWeatherForecast(
         lat: Double,
         lon: Double,
         units: String = Constants.DEFAULT_UNIT
-    ): Flow<CommunicationResult<Map<Calendar, CurrentWeatherInformation>>>
+    ): CommunicationResult<Map<Calendar, CurrentWeatherInformation>>
 
     suspend fun getWeatherForecast(
         q: String,
         units: String = Constants.DEFAULT_UNIT
-    ): Flow<CommunicationResult<Map<Calendar, CurrentWeatherInformation>>>
+    ): CommunicationResult<Map<Calendar, CurrentWeatherInformation>>
 
 }

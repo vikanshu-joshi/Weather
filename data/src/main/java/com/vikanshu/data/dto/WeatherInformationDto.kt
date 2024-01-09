@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName
 import com.vikanshu.data.model.CurrentWeatherInformation
 import com.vikanshu.data.resource.Utility
 import java.util.Calendar
+import java.util.Date
+import java.util.TimeZone
 
 
 data class WeatherInformationDto(
@@ -23,21 +25,20 @@ data class WeatherInformationDto(
 ) {
     fun toCurrentWeatherInformation(): CurrentWeatherInformation {
         return CurrentWeatherInformation(
-            timestamp = Calendar.getInstance().apply { dt?.let { timeInMillis = it.toLong() } },
-            description = if (weather.isEmpty()) "" else weather.first().description ?: "",
+            timestamp = Calendar.getInstance().apply { timeInMillis = System.currentTimeMillis() + (timezone!! * 1000) },
+            description = if (weather.isEmpty()) "" else weather.first().main ?: "",
             name = name ?: "",
             iconUrl = if (weather.isEmpty()) "" else Utility.getImageIconUrl(weather.first().icon),
             temp = main?.temp ?: 0.0,
             feelsLike = main?.feelsLike ?: 0.0,
             humidity = main?.humidity ?: 0,
             pressure = main?.pressure ?: 0,
-            sunrise = Calendar.getInstance()
-                .apply { sys?.sunrise?.let { timeInMillis = it.toLong() } },
-            sunset = Calendar.getInstance()
-                .apply { sys?.sunset?.let { timeInMillis = it.toLong() } },
+            sunrise = Calendar.getInstance().apply { timeInMillis = sys!!.sunrise!! * 1000L },
+            sunset = Calendar.getInstance().apply { timeInMillis = sys!!.sunset!! * 1000L },
             visibility = visibility ?: 0,
             windDeg = wind?.deg ?: 0,
-            windSpeed = wind?.speed ?: 0.0
+            windSpeed = wind?.speed ?: 0.0,
+            timezone = timezone!!
         )
     }
 }

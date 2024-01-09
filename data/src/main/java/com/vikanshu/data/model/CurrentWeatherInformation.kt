@@ -4,6 +4,7 @@ import java.util.Calendar
 
 data class CurrentWeatherInformation(
     val timestamp: Calendar,
+    var timezone: Int,
     var name: String,
     val iconUrl: String,
     val description: String,
