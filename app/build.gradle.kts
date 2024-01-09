@@ -58,6 +58,7 @@ android {
 dependencies {
 
     implementation(project(":data"))
+    implementation(project(":core-ui"))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycleRuntimeKtx)

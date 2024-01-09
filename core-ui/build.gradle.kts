@@ -35,9 +35,18 @@ android {
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    implementation(Koin.koin)
+    implementation(Koin.koinAndroid)
+    implementation(Koin.koinAndroidXCompose)
+
+    implementation(platform(Compose.composeBom))
+    implementation(Compose.composeUi)
+    implementation(Compose.composeGraphics)
+    implementation(Compose.composeUiTooling)
+    implementation(Compose.composeToolingPreview)
+    implementation(Compose.composeMaterial3)
+    implementation(Compose.composeMaterial3WindowSize)
+    implementation(Compose.composeRuntimeLivedata)
+    implementation(Compose.viewModelCompose)
 }

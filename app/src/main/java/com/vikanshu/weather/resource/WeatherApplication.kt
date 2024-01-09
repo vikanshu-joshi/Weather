@@ -1,6 +1,7 @@
 package com.vikanshu.weather.resource
 
 import android.app.Application
+import com.vikanshu.core_ui.di.commonModule
 import com.vikanshu.data.di.dataModule
 import com.vikanshu.weather.di.appModule
 import org.koin.android.ext.koin.androidContext
@@ -12,7 +13,7 @@ class WeatherApplication: Application() {
         super.onCreate()
         startKoin {
             androidContext(this@WeatherApplication)
-            modules(appModule, dataModule)
+            modules(appModule, dataModule, commonModule)
         }
     }
 
