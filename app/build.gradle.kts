@@ -1,5 +1,3 @@
-import dependencies.Hilt
-
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")

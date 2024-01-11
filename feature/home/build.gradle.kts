@@ -1,43 +1,67 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.vikanshu.home"
-    compileSdk = 34
+    compileSdk = BuildConfig.compileSdk
 
     defaultConfig {
-        minSdk = 24
+        minSdk = BuildConfig.minSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = BuildConfig.testInstrumentationRunner
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    compileOptions {
+        sourceCompatibility = BuildConfig.sourceCompatibility
+        targetCompatibility = BuildConfig.targetCompatibility
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = BuildConfig.kotlinCompilerExtensionVersion
+    }
+    kotlin {
+        jvmToolchain {
+            languageVersion.set(JavaLanguageVersion.of(BuildConfig.jvmTarget))
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = BuildConfig.jvmTarget
     }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(project(":data"))
+    implementation(project(":core-ui"))
+
+    implementation(AndroidX.coreKtx)
+    implementation(AndroidX.lifecycleRuntimeKtx)
+
+    implementation(Kotlin.coroutines)
+    implementation(Kotlin.coroutinesAndroid)
+
+    implementation(Hilt.hilt)
+    kapt(Hilt.hiltCompiler)
+
+    implementation(AndroidX.activityCompose)
+
+    implementation(platform(Compose.composeBom))
+    implementation(Compose.composeUi)
+    implementation(Compose.composeGraphics)
+    implementation(Compose.composeUiTooling)
+    implementation(Compose.composeToolingPreview)
+    implementation(Compose.composeMaterial3)
+    implementation(Compose.composeMaterial3WindowSize)
+    implementation(Compose.composeRuntimeLivedata)
+    implementation(Compose.viewModelCompose)
 }

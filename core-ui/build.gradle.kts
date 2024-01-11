@@ -1,5 +1,3 @@
-import dependencies.Hilt
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -9,13 +7,17 @@ plugins {
 
 android {
     namespace = "com.vikanshu.core_ui"
-    compileSdk = 34
+    compileSdk = BuildConfig.compileSdk
 
     defaultConfig {
-        minSdk = 24
+        minSdk = BuildConfig.minSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = BuildConfig.testInstrumentationRunner
+    }
+
+    compileOptions {
+        sourceCompatibility = BuildConfig.sourceCompatibility
+        targetCompatibility = BuildConfig.targetCompatibility
     }
     buildFeatures {
         compose = true
@@ -23,21 +25,13 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = BuildConfig.kotlinCompilerExtensionVersion
     }
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    kotlin {
+        jvmToolchain {
+            languageVersion.set(JavaLanguageVersion.of(BuildConfig.jvmTarget))
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = BuildConfig.jvmTarget
     }
 }
 
