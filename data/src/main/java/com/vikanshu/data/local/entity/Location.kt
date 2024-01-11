@@ -8,14 +8,11 @@ import com.vikanshu.data.local.model.AirQuality
 
 @Entity
 data class Location(
-    @SerializedName("name") @PrimaryKey var name: String,
-    @SerializedName("region") var region: String,
-    @SerializedName("country") var country: String,
-    @SerializedName("lat") var lat: Double,
-    @SerializedName("lon") var lon: Double,
-    @SerializedName("timezoneId") var timezoneId: String,
-    @SerializedName("localtimeEpoch") var localtimeEpoch: Int,
-    @SerializedName("localtime") var localtime: String
+    @PrimaryKey var name: String,
+    var region: String,
+    var country: String,
+    var lat: Double,
+    var lon: Double
 ) {
     fun toJson(): String {
         return Gson().toJson(this)

@@ -14,7 +14,7 @@ interface WeatherApi {
         @Query("q") q: String,
         @Query("aqi") aqi: String = "yes",
         @Query("key") key: String = ""
-    ): ResponseCurrentWeather
+    ): ResponseCurrentWeather?
 
     @GET("forecast.json")
     suspend fun getWeatherForecast(
@@ -23,14 +23,14 @@ interface WeatherApi {
         @Query("aqi") aqi: String = "yes",
         @Query("alerts") alerts: String = "yes",
         @Query("key") key: String = ""
-    ): ResponseForecastWeather
+    ): ResponseForecastWeather?
 
 
     @GET("search.json")
     suspend fun searchLocations(
         @Query("q") q: String,
         @Query("key") key: String = ""
-    ): ResponseSearchLocation
+    ): List<ResponseSearchLocation>?
 
 
     @GET("astronomy.json")
@@ -38,6 +38,6 @@ interface WeatherApi {
         @Query("q") q: String,
         @Query("dt") dt: String, // yyyy-mm-dd
         @Query("key") key: String = ""
-    ): ResponseAstro
+    ): ResponseAstro?
 
 }

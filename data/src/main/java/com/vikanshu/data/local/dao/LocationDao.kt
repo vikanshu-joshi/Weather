@@ -14,7 +14,7 @@ interface LocationDao {
     // C
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWeather(location: Location)
+    suspend fun insertLocation(location: Location)
 
 
     // R

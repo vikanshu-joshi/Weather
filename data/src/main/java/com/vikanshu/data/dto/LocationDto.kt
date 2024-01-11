@@ -3,7 +3,7 @@ package com.vikanshu.data.dto
 import com.google.gson.annotations.SerializedName
 
 
-data class Location(
+data class LocationDto(
 
     @SerializedName("name") var name: String? = null,
     @SerializedName("region") var region: String? = null,
@@ -14,4 +14,7 @@ data class Location(
     @SerializedName("localtime_epoch") var localtimeEpoch: Int? = null,
     @SerializedName("localtime") var localtime: String? = null
 
-)
+) {
+    fun isValid() =
+        name != null && region != null && country != null && lat != null && lon != null && localtimeEpoch != null && localtime != null
+}
