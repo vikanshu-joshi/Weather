@@ -1,8 +1,8 @@
 package com.vikanshu.data.di
 
 import com.vikanshu.data.api.WeatherApi
-import com.vikanshu.data.repository.WeatherRepository
-import com.vikanshu.data.repository.impl.WeatherRepositoryImpl
+import com.vikanshu.data.repository.LocationRepository
+import com.vikanshu.data.repository.impl.LocationRepositoryImpl
 import com.vikanshu.data.resource.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,7 +31,7 @@ val dataModule = module {
             .build()
         retrofit.create(WeatherApi::class.java)
     }
-//    single<WeatherRepository> {
-//        WeatherRepositoryImpl(get(named("io")), get())
-//    }
+    single<LocationRepository> {
+        LocationRepositoryImpl(get(named("io")), get(), get())
+    }
 }
