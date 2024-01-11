@@ -1,7 +1,7 @@
 package com.vikanshu.data.dto.forecast
 
 import com.google.gson.annotations.SerializedName
-import com.vikanshu.data.dto.AirQuality
+import com.vikanshu.data.dto.AirQualityDto
 import com.vikanshu.data.dto.Condition
 
 
@@ -41,6 +41,6 @@ data class Hour(
     @SerializedName("gust_mph") var gustMph: Double? = null,
     @SerializedName("gust_kph") var gustKph: Double? = null,
     @SerializedName("uv") var uv: Int? = null,
-    @SerializedName("air_quality") var airQuality: AirQuality? = AirQuality()
+    @SerializedName("air_quality") var airQualityDto: AirQualityDto? = AirQualityDto()
 
 )

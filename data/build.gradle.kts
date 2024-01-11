@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -41,6 +42,11 @@ dependencies {
     implementation(Koin.koin)
     implementation(Koin.koinAndroid)
     implementation(Koin.koinAndroidXCompose)
+
+    // room
+    implementation(Room.room)
+    implementation(Room.roomKtx)
+    kapt(Room.roomKapt)
 
     // gson
     implementation(Google.gson)

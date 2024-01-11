@@ -1,7 +1,7 @@
 package com.vikanshu.data.dto.forecast
 
 import com.google.gson.annotations.SerializedName
-import com.vikanshu.data.dto.AirQuality
+import com.vikanshu.data.dto.AirQualityDto
 import com.vikanshu.data.dto.Condition
 
 
@@ -27,6 +27,6 @@ data class Day(
     @SerializedName("daily_chance_of_snow") var dailyChanceOfSnow: Int? = null,
     @SerializedName("condition") var condition: Condition? = Condition(),
     @SerializedName("uv") var uv: Int? = null,
-    @SerializedName("air_quality") var airQuality: AirQuality? = AirQuality()
+    @SerializedName("air_quality") var airQualityDto: AirQualityDto? = AirQualityDto()
 
 )

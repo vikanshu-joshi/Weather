@@ -3,7 +3,7 @@ package com.vikanshu.data.dto
 import com.google.gson.annotations.SerializedName
 
 
-data class AirQuality(
+data class AirQualityDto(
 
     @SerializedName("co") var co: Double? = null,
     @SerializedName("no2") var no2: Double? = null,

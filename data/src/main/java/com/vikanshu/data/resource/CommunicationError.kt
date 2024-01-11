@@ -1,4 +1,4 @@
-package com.vikanshu.data.model
+package com.vikanshu.data.resource
 
 enum class CommunicationErrorType {
     UNKNOWN,

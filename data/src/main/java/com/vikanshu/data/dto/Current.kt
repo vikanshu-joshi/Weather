@@ -28,6 +28,6 @@ data class Current(
     @SerializedName("uv") var uv: Int? = null,
     @SerializedName("gust_mph") var gustMph: Double? = null,
     @SerializedName("gust_kph") var gustKph: Double? = null,
-    @SerializedName("air_quality") var airQuality: AirQuality? = AirQuality()
+    @SerializedName("air_quality") var airQualityDto: AirQualityDto? = AirQualityDto()
 
 )
