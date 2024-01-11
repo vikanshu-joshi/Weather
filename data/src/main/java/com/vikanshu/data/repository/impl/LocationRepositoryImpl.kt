@@ -23,7 +23,7 @@ class LocationRepositoryImpl @Inject constructor(
     override suspend fun searchLocation(query: String): Flow<CommunicationResult<List<Location>>> {
         return flow {
             emit(CommunicationResult.Loading)
-            emit(apiCall(operation = {
+            val response = apiCall(operation = {
                 weatherApi.searchLocations(query)
             }, converter = {
                 it!!.map { res ->
@@ -37,7 +37,8 @@ class LocationRepositoryImpl @Inject constructor(
                 }
             }, isValidResponse = {
                 it != null
-            }))
+            })
+            emit(response)
             return@flow
         }.flowOn(ioDispatcher)
     }

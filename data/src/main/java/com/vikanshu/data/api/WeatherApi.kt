@@ -3,6 +3,7 @@ package com.vikanshu.data.api
 import com.vikanshu.data.dto.astro.ResponseAstro
 import com.vikanshu.data.dto.forecast.ResponseForecastWeather
 import com.vikanshu.data.dto.search.ResponseSearchLocation
+import com.vikanshu.data.resource.Constants
 import com.vikanshu.weather.dto.current.ResponseCurrentWeather
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,7 +14,7 @@ interface WeatherApi {
     suspend fun getCurrentWeather(
         @Query("q") q: String,
         @Query("aqi") aqi: String = "yes",
-        @Query("key") key: String = ""
+        @Query("key") key: String = Constants.WEATHER_API_KEY
     ): ResponseCurrentWeather?
 
     @GET("forecast.json")
@@ -22,14 +23,14 @@ interface WeatherApi {
         @Query("days") days: Int,
         @Query("aqi") aqi: String = "yes",
         @Query("alerts") alerts: String = "yes",
-        @Query("key") key: String = ""
+        @Query("key") key: String = Constants.WEATHER_API_KEY
     ): ResponseForecastWeather?
 
 
     @GET("search.json")
     suspend fun searchLocations(
         @Query("q") q: String,
-        @Query("key") key: String = ""
+        @Query("key") key: String = Constants.WEATHER_API_KEY
     ): List<ResponseSearchLocation>?
 
 
@@ -37,7 +38,7 @@ interface WeatherApi {
     suspend fun astronomyDetails(
         @Query("q") q: String,
         @Query("dt") dt: String, // yyyy-mm-dd
-        @Query("key") key: String = ""
+        @Query("key") key: String = Constants.WEATHER_API_KEY
     ): ResponseAstro?
 
 }

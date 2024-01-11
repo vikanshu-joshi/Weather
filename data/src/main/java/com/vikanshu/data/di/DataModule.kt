@@ -27,7 +27,7 @@ class DataModule {
     fun providesWeatherApi(): WeatherApi {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.apply {
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
         }
         val okHttpClient = OkHttpClient.Builder()
             .addNetworkInterceptor(httpLoggingInterceptor)
