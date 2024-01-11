@@ -1,4 +1,4 @@
-package com.vikanshu.weather.ui.theme
+package com.vikanshu.core_ui.ui
 
 import androidx.compose.ui.graphics.Color
 

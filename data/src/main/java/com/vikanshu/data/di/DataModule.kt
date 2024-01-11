@@ -1,19 +1,30 @@
 package com.vikanshu.data.di
 
 import com.vikanshu.data.api.WeatherApi
+import com.vikanshu.data.local.dao.LocationDao
 import com.vikanshu.data.repository.LocationRepository
 import com.vikanshu.data.repository.impl.LocationRepositoryImpl
 import com.vikanshu.data.resource.Constants
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
+import javax.inject.Singleton
 
-val dataModule = module {
-    single {
+@InstallIn(SingletonComponent::class)
+@Module
+class DataModule {
+
+    @Provides
+    @Singleton
+    fun providesWeatherApi(): WeatherApi {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.apply {
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -29,9 +40,17 @@ val dataModule = module {
             .baseUrl(Constants.BASE_WEATHER_API_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        retrofit.create(WeatherApi::class.java)
+        return retrofit.create(WeatherApi::class.java)
     }
-    single<LocationRepository> {
-        LocationRepositoryImpl(get(named("io")), get(), get())
+
+    @Provides
+    @Singleton
+    fun providesLocationRepository(
+        @Named("io") ioDispatcher: CoroutineDispatcher,
+        locationDao: LocationDao,
+        weatherApi: WeatherApi
+    ): LocationRepository {
+        return LocationRepositoryImpl(ioDispatcher, locationDao, weatherApi)
     }
+
 }

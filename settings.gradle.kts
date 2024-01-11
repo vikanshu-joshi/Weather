@@ -17,3 +17,6 @@ rootProject.name = "Weather"
 include(":app")
 include(":data")
 include(":core-ui")
+include(":feature")
+include(":feature:search")
+include(":feature:home")

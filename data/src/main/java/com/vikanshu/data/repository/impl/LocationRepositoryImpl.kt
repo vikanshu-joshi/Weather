@@ -11,9 +11,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Named
 
-class LocationRepositoryImpl(
-    private val ioDispatcher: CoroutineDispatcher,
+class LocationRepositoryImpl @Inject constructor(
+    @Named("io") private val ioDispatcher: CoroutineDispatcher,
     private val locationDao: LocationDao,
     private val weatherApi: WeatherApi
 ) : LocationRepository {

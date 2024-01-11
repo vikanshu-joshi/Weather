@@ -1,3 +1,5 @@
+import dependencies.Hilt
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -28,6 +30,10 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
 
     implementation(AndroidX.coreKtx)
@@ -38,10 +44,8 @@ dependencies {
     implementation(Retrofit.okhttp)
     implementation(Retrofit.logginInterceptor)
 
-    // dependency injection - Koin
-    implementation(Koin.koin)
-    implementation(Koin.koinAndroid)
-    implementation(Koin.koinAndroidXCompose)
+    implementation(Hilt.hilt)
+    kapt(Hilt.hiltCompiler)
 
     // room
     implementation(Room.room)

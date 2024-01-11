@@ -1,37 +1,27 @@
 package com.vikanshu.weather.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.vikanshu.core_ui.ConnectivityObserver
 import com.vikanshu.core_ui.DeviceSizeType
-import com.vikanshu.weather.ui.components.NetworkNotAvailableTile
-import com.vikanshu.weather.ui.screens.home.HomeScreen
-import com.vikanshu.weather.ui.theme.SfDisplayProFontFamily
-import com.vikanshu.weather.ui.theme.WeatherTheme
-import org.koin.android.ext.android.get
+import com.vikanshu.core_ui.components.NetworkNotAvailableTile
+import com.vikanshu.core_ui.ui.WeatherTheme
+import com.vikanshu.search.SearchScreen
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val connectivityObserver: ConnectivityObserver = get()
+    @Inject lateinit var connectivityObserver: ConnectivityObserver
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +37,7 @@ class MainActivity : ComponentActivity() {
                     DeviceSizeType.calculateFromWindowSizeClass(calculateWindowSizeClass(activity = this))
 
                 Column {
-                    HomeScreen(
+                    SearchScreen(
                         modifier = Modifier.weight(1f),
                         deviceSizeType = deviceType
                     )

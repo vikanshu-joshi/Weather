@@ -2,19 +2,17 @@ package com.vikanshu.weather.ui.screens.home
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.weather.ui.viewmodel.HomeViewModel
-import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = koinViewModel(),
+    viewModel: HomeViewModel = viewModel(),
     isDarkTheme: Boolean = isSystemInDarkTheme(),
     deviceSizeType: DeviceSizeType
 ) {

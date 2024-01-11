@@ -1,15 +1,30 @@
 package com.vikanshu.weather.di
 
-import com.vikanshu.weather.ui.viewmodel.HomeViewModel
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
+import javax.inject.Named
+import javax.inject.Singleton
 
-val appModule = module {
-    single(named("io")) { Dispatchers.IO }
-    single(named("default")) { Dispatchers.Default }
-    viewModel {
-        HomeViewModel(get(named("io")), get())
+@Module
+@InstallIn(SingletonComponent::class)
+class AppModule {
+
+    @Singleton
+    @Provides
+    @Named("io")
+    fun providesIoDispatcher(): CoroutineDispatcher {
+        return Dispatchers.IO
     }
+
+    @Singleton
+    @Provides
+    @Named("default")
+    fun providesDefaultDispatcher(): CoroutineDispatcher {
+        return Dispatchers.Default
+    }
+
 }

@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.vikanshu.core_ui"
+    namespace = "com.vikanshu.search"
     compileSdk = 34
 
     defaultConfig {
@@ -17,12 +17,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = BuildConfig.kotlinCompilerExtensionVersion
-    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -31,6 +26,12 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = BuildConfig.kotlinCompilerExtensionVersion
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -47,10 +48,19 @@ kapt {
 
 dependencies {
 
+    implementation(project(":data"))
+    implementation(project(":core-ui"))
+
     implementation(AndroidX.coreKtx)
+    implementation(AndroidX.lifecycleRuntimeKtx)
+
+    implementation(Kotlin.coroutines)
+    implementation(Kotlin.coroutinesAndroid)
 
     implementation(Hilt.hilt)
     kapt(Hilt.hiltCompiler)
+
+    implementation(AndroidX.activityCompose)
 
     implementation(platform(Compose.composeBom))
     implementation(Compose.composeUi)

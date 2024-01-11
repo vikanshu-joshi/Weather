@@ -1,6 +1,11 @@
+import dependencies.Hilt
+
 plugins {
     id("com.android.application")
+    id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -55,17 +60,21 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
 
     implementation(project(":data"))
     implementation(project(":core-ui"))
+    implementation(project(":feature:search"))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycleRuntimeKtx)
 
-    implementation(Koin.koin)
-    implementation(Koin.koinAndroid)
-    implementation(Koin.koinAndroidXCompose)
+    implementation(Hilt.hilt)
+    kapt(Hilt.hiltCompiler)
 
     implementation(AndroidX.activityCompose)
 
