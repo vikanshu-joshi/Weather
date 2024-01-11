@@ -31,7 +31,7 @@ val dataModule = module {
             .build()
         retrofit.create(WeatherApi::class.java)
     }
-    single<WeatherRepository> {
-        WeatherRepositoryImpl(get(named("io")), get())
-    }
+//    single<WeatherRepository> {
+//        WeatherRepositoryImpl(get(named("io")), get())
+//    }
 }
