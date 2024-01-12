@@ -20,7 +20,7 @@ data class ForecastDay(
     companion object {
         fun fromForecastDayDto(day: Day?): ForecastDay {
             return ForecastDay(
-                date = Date(SimpleDateFormat("yyyy-mm-dd HH:mm").parse(day?.date ?: "1907-01-01 00:00").time),
+                date = Date(SimpleDateFormat("yyyy-mm-dd").parse(day?.date ?: "1907-01-01").time),
                 weatherDescription = day?.day?.condition?.text ?: "",
                 weatherIcon = if (day?.day?.condition?.icon == null) "" else "https:" + day?.day?.condition?.icon ?: "",
                 tempHighC = day?.day?.maxtempC ?: 0.0,

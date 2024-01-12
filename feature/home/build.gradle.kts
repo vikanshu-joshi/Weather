@@ -53,6 +53,8 @@ dependencies {
     implementation(Hilt.hilt)
     kapt(Hilt.hiltCompiler)
 
+    implementation(Google.gson)
+
     implementation(AndroidX.activityCompose)
 
     implementation(Coil.coilCompose)

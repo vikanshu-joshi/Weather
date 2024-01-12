@@ -25,7 +25,7 @@ data class ForecastHour(
                 tempC = hour?.tempC ?: 0.0,
                 tempF = hour?.tempF ?: 0.0,
                 weatherDescription = hour?.condition?.text ?: "",
-                weatherIcon = if (hour?.condition?.icon == null) "" else "https:" + hour?.condition?.icon ?: ""
+                weatherIcon = if (hour?.condition?.icon == null) "" else "https:" + hour?.condition?.icon
             )
         }
     }

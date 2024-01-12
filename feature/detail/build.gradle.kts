@@ -55,6 +55,9 @@ dependencies {
 
     implementation(AndroidX.activityCompose)
 
+    implementation(Coil.coilCompose)
+    implementation(Coil.coilSvgCompose)
+
     implementation(platform(Compose.composeBom))
     implementation(Compose.composeUi)
     implementation(Compose.composeGraphics)

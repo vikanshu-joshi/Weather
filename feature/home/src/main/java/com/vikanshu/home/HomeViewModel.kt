@@ -1,7 +1,9 @@
 package com.vikanshu.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.vikanshu.data.local.entity.CurrentWeather
 import com.vikanshu.data.local.entity.Location
 import com.vikanshu.data.repository.LocationRepository
@@ -89,7 +91,6 @@ class HomeViewModel @Inject constructor(
                         weather = it.data
                     )
                 }.sortedBy { it.location.name }
-
             uiState.emit(
                 HomeUiState(
                     isLoading = false,
