@@ -9,6 +9,7 @@ import com.vikanshu.data.local.model.Temperature
 import com.vikanshu.data.local.model.Visibility
 import com.vikanshu.data.local.model.Wind
 import com.vikanshu.weather.dto.current.ResponseCurrentWeather
+import java.text.SimpleDateFormat
 import java.util.Date
 
 @Entity
@@ -35,7 +36,7 @@ data class CurrentWeather(
             return CurrentWeather(
                 location = Location.fromLocationDto(current.locationDto),
                 lastUpdated = Date(current.current?.lastUpdatedEpoch?.toLong() ?: 0L),
-                timestamp = Date(current.locationDto?.localtimeEpoch?.toLong() ?: 0L),
+                timestamp = Date(SimpleDateFormat("yyyy-mm-dd HH:mm").parse(current?.locationDto?.localtime ?: "1907-01-01 00:00").time),
                 temp = Temperature.fromCurrentDto(current.current),
                 weatherDesc = current.current?.condition?.text ?: "",
                 weatherIcon = if (current.current?.condition?.icon == null) "" else "https:" + current.current?.condition?.icon,

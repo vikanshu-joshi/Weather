@@ -60,7 +60,7 @@ fun HomeScreenWeatherCard(
             Text(
                 if (currentWeather?.timestamp != null) SimpleDateFormat(
                     "hh:mm aa",
-                    Locale.US
+                    Locale.getDefault()
                 ).format(currentWeather.timestamp) else "--:-- --",
                 modifier = Modifier.padding(start = 32.dp),
                 textAlign = TextAlign.End,
