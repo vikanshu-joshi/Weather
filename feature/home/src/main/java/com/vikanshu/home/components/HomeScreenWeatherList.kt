@@ -40,6 +40,7 @@ private fun HomeScreenVerticalWeatherList(
         items(count = data.size, key = {
             data[it].location.name
         }) {
+            Spacer(modifier = Modifier.height(4.dp))
             HomeScreenWeatherCard(
                 modifier = Modifier.padding(horizontal = 20.dp),
                 isCurrentLocation = false,

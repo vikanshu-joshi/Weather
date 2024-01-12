@@ -1,6 +1,7 @@
 package com.vikanshu.home
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,7 +44,8 @@ fun HomeScreen(
     }
 
     Scaffold(
-        modifier = modifier
+        modifier = modifier,
+        containerColor = Color.White,
     ) {
         when (deviceSizeType) {
             DeviceSizeType.PORTRAIT -> HomeScreenPortrait(state, onSearch)
@@ -60,7 +62,9 @@ fun HomeScreenPortrait(
 ) {
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
     ) {
         HomeScreenTopBar(isLoading = state.isLoading, onSearch = onSearch)
         if (state.isLoading && state.weather.isEmpty()) UiLoader()
@@ -77,11 +81,13 @@ fun HomeScreenPortrait(
             )
         }
         if (!state.isLoading && state.weather.isEmpty()) HomeScreenNoDataView()
-        if (state.weather.isNotEmpty()) HomeScreenWeatherList(
-            modifier = Modifier.weight(1f),
-            deviceSizeType = DeviceSizeType.PORTRAIT,
-            data = state.weather
-        )
+        if (state.weather.isNotEmpty()) {
+            HomeScreenWeatherList(
+                modifier = Modifier.weight(1f),
+                deviceSizeType = DeviceSizeType.PORTRAIT,
+                data = state.weather
+            )
+        }
     }
 }
 
