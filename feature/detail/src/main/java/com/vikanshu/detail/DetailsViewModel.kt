@@ -36,7 +36,7 @@ class DetailsViewModel @Inject constructor(
             uiState.emit(
                 DetailScreenUiState(
                     isLoading = true,
-                    message = "Loading...",
+                    message = "",
                     forecast = null
                 )
             )
@@ -52,9 +52,15 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    private fun fetchForecastData() {
+    fun fetchForecastData() {
         viewModelScope.launch(ioDispatcher) {
-            delay(5000L)
+            uiState.emit(
+                DetailScreenUiState(
+                    isLoading = true,
+                    message = "",
+                    forecast = uiState.value.forecast
+                )
+            )
             val result = forecastRepository.getCurrentForecast(currentWeather.location.name)
             if (result is CommunicationResult.Success) {
                 uiState.emit(

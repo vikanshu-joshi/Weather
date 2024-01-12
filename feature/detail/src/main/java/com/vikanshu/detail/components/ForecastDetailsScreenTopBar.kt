@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -33,7 +34,8 @@ import java.util.Locale
 fun ForecastDetailsScreenTopBar(
     isLoading: Boolean,
     forecast: Forecast?,
-    currentWeather: CurrentWeather
+    currentWeather: CurrentWeather,
+    onRefresh: () -> Unit
 ) {
     TopAppBar(title = {
         Text(
@@ -59,19 +61,11 @@ fun ForecastDetailsScreenTopBar(
                 strokeWidth = 2.dp,
                 strokeCap = StrokeCap.Round
             )
+            Spacer(modifier = Modifier.width(16.dp))
+        } else {
+            IconButton(onClick = onRefresh) {
+                Icon(imageVector = Icons.Default.Refresh, contentDescription = "")
+            }
         }
-        Text(
-            SimpleDateFormat(
-                "hh:mm aa",
-                Locale.getDefault()
-            ).format(forecast?.date ?: currentWeather.timestamp) ?: "--:-- --",
-            modifier = Modifier.padding(start = 32.dp),
-            textAlign = TextAlign.End,
-            fontFamily = SfDisplayProFontFamily,
-            fontWeight = FontWeight.Bold,
-            fontSize = 17.sp,
-            color = color0076FF
-        )
-        Spacer(modifier = Modifier.width(16.dp))
     }, colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White))
 }

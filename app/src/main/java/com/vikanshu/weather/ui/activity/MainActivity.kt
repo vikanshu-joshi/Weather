@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.LaunchedEffect
@@ -56,15 +57,11 @@ class MainActivity : ComponentActivity() {
                 }
 
                 LaunchedEffect(key1 = true) {
-                    state = weatherRepository.getWeatherFromDB("London")
+                    state = weatherRepository.getWeatherFromDB("Gurgaon")
                 }
 
                 Column {
-                    if (state != null) DetailScreen(
-                        modifier = Modifier.weight(1f),
-                        currentWeather = state!!,
-                        deviceSizeType = deviceType
-                    )
+                    if (state != null) DetailScreen(modifier = Modifier.fillMaxSize(), deviceSizeType = deviceType, currentWeather = state!!)
                     AnimatedVisibility(visible = connectivityState.value == ConnectivityObserver.Status.NetworkUnavailable) {
                         NetworkNotAvailableTile(modifier = Modifier.animateContentSize())
                     }

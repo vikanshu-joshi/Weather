@@ -15,12 +15,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
+import com.vikanshu.core_ui.ui.color0076FF
 import com.vikanshu.data.local.entity.CurrentWeather
 import com.vikanshu.data.local.entity.Forecast
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Composable
 fun ForecastDetailScreenWeatherCard(
@@ -52,8 +56,21 @@ fun ForecastDetailScreenWeatherCard(
                 model = forecast?.weatherIcon ?: currentWeather.weatherIcon,
                 contentDescription = ""
             )
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                SimpleDateFormat(
+                    "hh:mm aa",
+                    Locale.getDefault()
+                ).format(forecast?.date ?: currentWeather.timestamp) ?: "--:-- --",
+                modifier = Modifier.padding(start = 1.dp),
+                textAlign = TextAlign.End,
+                fontFamily = SfDisplayProFontFamily,
+                fontWeight = FontWeight.Bold,
+                fontSize = 17.sp,
+                color = color0076FF
+            )
         }
-        Spacer(modifier = Modifier.height(18.dp))
+        Spacer(modifier = Modifier.height(12.dp))
         Text(
             "${forecast?.tempC ?: currentWeather.temp.tempC}°C",
             modifier = Modifier

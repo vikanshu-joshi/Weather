@@ -40,7 +40,7 @@ fun ForecastDetailMoreInfo(
             fontSize = 20.sp,
             color = Color.Black
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(32.dp))
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -50,30 +50,30 @@ fun ForecastDetailMoreInfo(
             ) {
                 ForecastDetailInfoCardItem(
                     title = "Humidity",
-                    icon = painterResource(id = R.drawable.ic_weather_sunset),
+                    icon = painterResource(id = R.drawable.ic_weather_drop),
                     value = "${currentWeather.humidity.toInt()}%",
                     valueColor = color0076FF
                 )
                 Spacer(modifier = Modifier.height(36.dp))
                 ForecastDetailInfoCardItem(
                     title = "Wind",
-                    icon = painterResource(id = R.drawable.ic_weather_sunset),
+                    icon = null,
                     value = "${currentWeather.wind.windDir} ${currentWeather.wind.windMph.roundToInt()} mph",
                     valueColor = color0076FF
                 )
                 Spacer(modifier = Modifier.height(36.dp))
                 ForecastDetailInfoCardItem(
                     title = "Air Quality Index",
-                    icon = painterResource(id = R.drawable.ic_weather_sunset),
+                    icon = null,
                     value = "${currentWeather.airQuality.id}",
                     valueColor = Color(currentWeather.airQuality.color())
                 )
                 Spacer(modifier = Modifier.height(36.dp))
                 ForecastDetailInfoCardItem(
                     title = "Precipitation",
-                    icon = painterResource(id = R.drawable.ic_weather_sunset),
+                    icon = null,
                     value = "${currentWeather.precipitation.precipitationInInches.roundToInt()} in",
-                    valueColor = Color(currentWeather.airQuality.color())
+                    valueColor = color0076FF
                 )
             }
             Column(
@@ -82,30 +82,30 @@ fun ForecastDetailMoreInfo(
             ) {
                 ForecastDetailInfoCardItem(
                     title = "Feels Like",
-                    icon = painterResource(id = R.drawable.ic_weather_sunset),
+                    icon = painterResource(id = R.drawable.ic_weather_feels_like),
                     value = "${currentWeather.temp.feelsLikeC}°C",
                     valueColor = color0076FF
                 )
                 Spacer(modifier = Modifier.height(36.dp))
                 ForecastDetailInfoCardItem(
                     title = "Visibility",
-                    icon = painterResource(id = R.drawable.ic_weather_sunset),
+                    icon = null,
                     value = "${currentWeather.visibility.visibilityKm.roundToInt()} kms",
                     valueColor = color0076FF
                 )
                 Spacer(modifier = Modifier.height(36.dp))
                 ForecastDetailInfoCardItem(
                     title = "Air Quality",
-                    icon = painterResource(id = R.drawable.ic_weather_sunset),
+                    icon = null,
                     value = "${currentWeather.airQuality.description}",
                     valueColor = Color(currentWeather.airQuality.color())
                 )
                 Spacer(modifier = Modifier.height(36.dp))
                 ForecastDetailInfoCardItem(
                     title = "Pressure",
-                    icon = painterResource(id = R.drawable.ic_weather_sunset),
+                    icon = null,
                     value = "${currentWeather.pressure.pressureInInches.roundToInt()} in",
-                    valueColor = Color(currentWeather.airQuality.color())
+                    valueColor = color0076FF
                 )
             }
         }
@@ -115,7 +115,7 @@ fun ForecastDetailMoreInfo(
 @Composable
 fun ForecastDetailInfoCardItem(
     title: String,
-    icon: Painter,
+    icon: Painter?,
     value: String,
     valueColor: Color,
 ) {
@@ -130,7 +130,7 @@ fun ForecastDetailInfoCardItem(
             color = Color.Black
         )
         Spacer(modifier = Modifier.height(10.dp))
-        Image(
+        if (icon != null) Image(
             modifier = Modifier.size(width = 40.dp, height = 36.dp),
             painter = icon,
             contentDescription = ""
