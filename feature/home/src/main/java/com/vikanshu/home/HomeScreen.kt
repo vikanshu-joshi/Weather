@@ -10,6 +10,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -34,6 +35,11 @@ fun HomeScreen(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
     homeViewModel: HomeViewModel = viewModel()
 ) {
+
+    LaunchedEffect(key1 = Unit) {
+        homeViewModel.initializeData()
+    }
+
     Scaffold {
         when (deviceSizeType) {
             DeviceSizeType.PORTRAIT -> HomeScreenPortrait(homeViewModel)
@@ -43,7 +49,6 @@ fun HomeScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreenPortrait(
     homeViewModel: HomeViewModel

@@ -37,7 +37,8 @@ class HomeViewModel @Inject constructor(
     )
         private set
 
-    init {
+
+    fun initializeData() {
         viewModelScope.launch(ioDispatcher) {
             uiState.emit(
                 HomeUiState(
