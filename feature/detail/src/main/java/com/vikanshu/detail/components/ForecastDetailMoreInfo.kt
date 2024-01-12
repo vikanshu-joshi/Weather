@@ -130,12 +130,14 @@ fun ForecastDetailInfoCardItem(
             color = Color.Black
         )
         Spacer(modifier = Modifier.height(10.dp))
-        if (icon != null) Image(
-            modifier = Modifier.size(width = 40.dp, height = 36.dp),
-            painter = icon,
-            contentDescription = ""
-        )
-        Spacer(modifier = Modifier.height(10.dp))
+        if (icon != null) {
+            Image(
+                modifier = Modifier.size(width = 40.dp, height = 36.dp),
+                painter = icon,
+                contentDescription = ""
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+        }
         Text(
             text = value,
             fontFamily = SfDisplayProFontFamily,
