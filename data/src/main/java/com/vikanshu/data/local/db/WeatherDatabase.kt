@@ -7,10 +7,11 @@ import com.vikanshu.data.local.dao.CurrentWeatherDao
 import com.vikanshu.data.local.dao.ForecastDao
 import com.vikanshu.data.local.dao.LocationDao
 import com.vikanshu.data.local.entity.CurrentWeather
+import com.vikanshu.data.local.entity.Forecast
 import com.vikanshu.data.local.entity.Location
 
 @Database(
-    entities = [Location::class, CurrentWeather::class],
+    entities = [Location::class, CurrentWeather::class, Forecast::class],
     version = 1
 )
 @TypeConverters(value = [WeatherTyeConverters::class])
