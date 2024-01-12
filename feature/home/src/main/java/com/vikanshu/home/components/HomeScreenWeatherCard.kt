@@ -36,7 +36,7 @@ fun HomeScreenWeatherCard(
     Card(
         modifier = modifier
     ) {
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         Row(
             modifier = Modifier
                 .padding(horizontal = 32.dp)

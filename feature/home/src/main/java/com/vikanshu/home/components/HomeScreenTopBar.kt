@@ -21,7 +21,7 @@ import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
 @Composable
 fun HomeScreenTopBar(
     isLoading: Boolean,
-    onAdd: () -> Unit
+    onSearch: () -> Unit
 ) {
     TopAppBar(title = {
         Text(
@@ -38,7 +38,7 @@ fun HomeScreenTopBar(
                 strokeCap = StrokeCap.Round
             )
         }
-        IconButton(onClick = onAdd) {
+        IconButton(onClick = onSearch) {
             Icon(imageVector = Icons.Outlined.AddCircle, contentDescription = "")
         }
     })

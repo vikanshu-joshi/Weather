@@ -31,9 +31,12 @@ import com.vikanshu.home.components.HomeScreenWeatherList
 fun HomeScreen(
     modifier: Modifier = Modifier,
     deviceSizeType: DeviceSizeType,
+    onSearch: () -> Unit = {},
     isDarkTheme: Boolean = isSystemInDarkTheme(),
     homeViewModel: HomeViewModel = viewModel()
 ) {
+
+    val state by homeViewModel.uiState.collectAsState()
 
     LaunchedEffect(key1 = Unit) {
         homeViewModel.initializeData()
@@ -41,26 +44,23 @@ fun HomeScreen(
 
     Scaffold {
         when (deviceSizeType) {
-            DeviceSizeType.PORTRAIT -> HomeScreenPortrait(homeViewModel)
-            DeviceSizeType.LANDSCAPE -> HomeScreenLandscape(homeViewModel)
-            DeviceSizeType.TABLET -> HomeScreenTablet(homeViewModel)
+            DeviceSizeType.PORTRAIT -> HomeScreenPortrait(state, onSearch)
+            DeviceSizeType.LANDSCAPE -> HomeScreenLandscape(state, onSearch)
+            DeviceSizeType.TABLET -> HomeScreenTablet(state, onSearch)
         }
     }
 }
 
 @Composable
 fun HomeScreenPortrait(
-    homeViewModel: HomeViewModel
+    state: HomeUiState,
+    onSearch: () -> Unit,
 ) {
-
-    val state by homeViewModel.uiState.collectAsState()
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        HomeScreenTopBar(isLoading = state.isLoading) {
-            // TODO navigation search
-        }
+        HomeScreenTopBar(isLoading = state.isLoading, onSearch = onSearch)
         if (state.isLoading && state.weather.isEmpty()) UiLoader()
         if (state.message.isNotBlank()) {
             Text(
@@ -85,17 +85,13 @@ fun HomeScreenPortrait(
 
 @Composable
 fun HomeScreenLandscape(
-    homeViewModel: HomeViewModel
+    state: HomeUiState,
+    onSearch: () -> Unit,
 ) {
-
-    val state by homeViewModel.uiState.collectAsState()
-
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        HomeScreenTopBar(isLoading = state.isLoading) {
-            // TODO navigation search
-        }
+        HomeScreenTopBar(isLoading = state.isLoading, onSearch = onSearch)
         if (state.isLoading && state.weather.isEmpty()) UiLoader()
         if (state.message.isNotBlank()) {
             Text(
@@ -120,17 +116,13 @@ fun HomeScreenLandscape(
 
 @Composable
 fun HomeScreenTablet(
-    homeViewModel: HomeViewModel
+    state: HomeUiState,
+    onSearch: () -> Unit,
 ) {
-
-    val state by homeViewModel.uiState.collectAsState()
-
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        HomeScreenTopBar(isLoading = state.isLoading) {
-            // TODO navigation search
-        }
+        HomeScreenTopBar(isLoading = state.isLoading, onSearch = onSearch)
         if (state.isLoading && state.weather.isEmpty()) UiLoader()
         if (state.message.isNotBlank()) {
             Text(
