@@ -43,7 +43,7 @@ fun HomeScreen(
         when (deviceSizeType) {
             DeviceSizeType.PORTRAIT -> HomeScreenPortrait(homeViewModel)
             DeviceSizeType.LANDSCAPE -> HomeScreenLandscape(homeViewModel)
-            DeviceSizeType.TABLET -> HomeScreenLandscape(homeViewModel)
+            DeviceSizeType.TABLET -> HomeScreenTablet(homeViewModel)
         }
     }
 }
@@ -113,6 +113,41 @@ fun HomeScreenLandscape(
         if (state.weather.isNotEmpty()) HomeScreenWeatherList(
             modifier = Modifier.weight(1f),
             deviceSizeType = DeviceSizeType.LANDSCAPE,
+            data = state.weather
+        )
+    }
+}
+
+@Composable
+fun HomeScreenTablet(
+    homeViewModel: HomeViewModel
+) {
+
+    val state by homeViewModel.uiState.collectAsState()
+
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        HomeScreenTopBar(isLoading = state.isLoading) {
+            // TODO navigation search
+        }
+        if (state.isLoading && state.weather.isEmpty()) UiLoader()
+        if (state.message.isNotBlank()) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp),
+                text = state.message,
+                textAlign = TextAlign.Center,
+                fontFamily = SfDisplayProFontFamily,
+                fontWeight = FontWeight.Medium,
+                color = Color.Black
+            )
+        }
+        if (!state.isLoading && state.weather.isEmpty()) HomeScreenNoDataView()
+        if (state.weather.isNotEmpty()) HomeScreenWeatherList(
+            modifier = Modifier.weight(1f),
+            deviceSizeType = DeviceSizeType.TABLET,
             data = state.weather
         )
     }
