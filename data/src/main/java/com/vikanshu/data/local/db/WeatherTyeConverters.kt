@@ -1,7 +1,6 @@
 package com.vikanshu.data.local.db
 
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import com.vikanshu.data.local.entity.Location
 import com.vikanshu.data.local.model.AirQuality
 import com.vikanshu.data.local.model.Precipitation

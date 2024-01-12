@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vikanshu.core_ui.DeviceSizeType
+import com.vikanshu.core_ui.components.UiLoader
 import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
 import com.vikanshu.core_ui.ui.colorA6A6A6
 
@@ -134,14 +135,7 @@ fun SearchScreenPortrait(
         }
         if (uiState.isLoading) {
             item {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 32.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
+                UiLoader()
             }
         }
         if (uiState.message.isNotBlank()) {
@@ -162,9 +156,7 @@ fun SearchScreenPortrait(
             item {
                 Spacer(modifier = Modifier.height(32.dp))
             }
-            items(count = uiState.locations.size, key = {
-                uiState.locations[it].name
-            }) {
+            items(count = uiState.locations.size) {
                 SearchListCard(
                     modifier = Modifier
                         .fillMaxWidth()

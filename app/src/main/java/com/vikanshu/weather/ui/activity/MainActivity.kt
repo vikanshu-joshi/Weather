@@ -14,14 +14,15 @@ import com.vikanshu.core_ui.ConnectivityObserver
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.core_ui.components.NetworkNotAvailableTile
 import com.vikanshu.core_ui.ui.WeatherTheme
-import com.vikanshu.search.SearchScreen
+import com.vikanshu.home.HomeScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject lateinit var connectivityObserver: ConnectivityObserver
+    @Inject
+    lateinit var connectivityObserver: ConnectivityObserver
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     DeviceSizeType.calculateFromWindowSizeClass(calculateWindowSizeClass(activity = this))
 
                 Column {
-                    SearchScreen(
+                    HomeScreen(
                         modifier = Modifier.weight(1f),
                         deviceSizeType = deviceType
                     )

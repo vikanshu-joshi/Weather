@@ -2,7 +2,6 @@ package com.vikanshu.data.local.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.vikanshu.data.local.dao.CurrentWeatherDao
 import com.vikanshu.data.local.dao.LocationDao

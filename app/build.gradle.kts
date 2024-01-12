@@ -67,6 +67,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":core-ui"))
     implementation(project(":feature:search"))
+    implementation(project(":feature:home"))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycleRuntimeKtx)

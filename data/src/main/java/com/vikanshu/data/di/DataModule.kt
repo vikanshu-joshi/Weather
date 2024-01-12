@@ -1,9 +1,12 @@
 package com.vikanshu.data.di
 
 import com.vikanshu.data.api.WeatherApi
+import com.vikanshu.data.local.dao.CurrentWeatherDao
 import com.vikanshu.data.local.dao.LocationDao
 import com.vikanshu.data.repository.LocationRepository
+import com.vikanshu.data.repository.WeatherRepository
 import com.vikanshu.data.repository.impl.LocationRepositoryImpl
+import com.vikanshu.data.repository.impl.WeatherRepositoryImpl
 import com.vikanshu.data.resource.Constants
 import dagger.Module
 import dagger.Provides
@@ -51,6 +54,16 @@ class DataModule {
         weatherApi: WeatherApi
     ): LocationRepository {
         return LocationRepositoryImpl(ioDispatcher, locationDao, weatherApi)
+    }
+
+    @Provides
+    @Singleton
+    fun providesWeatherRepository(
+        @Named("io") ioDispatcher: CoroutineDispatcher,
+        weatherDao: CurrentWeatherDao,
+        weatherApi: WeatherApi
+    ): WeatherRepository {
+        return WeatherRepositoryImpl(ioDispatcher, weatherDao, weatherApi)
     }
 
 }

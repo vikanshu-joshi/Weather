@@ -1,5 +1,6 @@
 package com.vikanshu.data.resource
 
+import android.util.Log
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -16,6 +17,7 @@ suspend fun <DTO, ENTITY> apiCall(
         if (!isValidResponse(result)) throw Exception()
         CommunicationResult.Success(converter(result))
     } catch (e: IOException) {
+        Log.e("apiCall", "IOException -> ${e.message}")
         CommunicationResult.Error(
             error = CommunicationError(
                 errorType = CommunicationErrorType.NO_INTERNET,
@@ -23,6 +25,7 @@ suspend fun <DTO, ENTITY> apiCall(
             )
         )
     } catch (e: HttpException) {
+        Log.e("apiCall", "HttpException -> ${e.message}")
         CommunicationResult.Error(
             error = CommunicationError(
                 errorType = CommunicationErrorType.HTTP,
@@ -30,6 +33,7 @@ suspend fun <DTO, ENTITY> apiCall(
             )
         )
     } catch (e: Exception) {
+        Log.e("apiCall", "Exception -> ${e.message}")
         CommunicationResult.Error(
             error = CommunicationError(
                 errorType = CommunicationErrorType.UNKNOWN,
