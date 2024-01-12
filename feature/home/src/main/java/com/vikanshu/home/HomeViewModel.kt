@@ -80,18 +80,21 @@ class HomeViewModel @Inject constructor(
                 ""
             }
 
+            val weatherList =
+                if (response.any { it is CommunicationResult.Error }) uiState.value.weather else response.filter {
+                    it is CommunicationResult.Success
+                }.map {
+                    HomeUiState.WeatherCardState(
+                        location = (it as CommunicationResult.Success).data.location,
+                        weather = it.data
+                    )
+                }.sortedBy { it.location.name }
+
             uiState.emit(
                 HomeUiState(
                     isLoading = false,
                     message = message,
-                    weather = response.filter {
-                        it is CommunicationResult.Success
-                    }.map {
-                        HomeUiState.WeatherCardState(
-                            location = (it as CommunicationResult.Success).data.location,
-                            weather = it.data
-                        )
-                    }.sortedBy { it.location.name }
+                    weather = weatherList
                 )
             )
         }

@@ -42,7 +42,9 @@ fun HomeScreen(
         homeViewModel.initializeData()
     }
 
-    Scaffold {
+    Scaffold(
+        modifier = modifier
+    ) {
         when (deviceSizeType) {
             DeviceSizeType.PORTRAIT -> HomeScreenPortrait(state, onSearch)
             DeviceSizeType.LANDSCAPE -> HomeScreenLandscape(state, onSearch)
@@ -66,7 +68,7 @@ fun HomeScreenPortrait(
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 12.dp),
+                    .padding(bottom = 24.dp),
                 text = state.message,
                 textAlign = TextAlign.Center,
                 fontFamily = SfDisplayProFontFamily,
