@@ -2,6 +2,7 @@ package com.vikanshu.data.local.model
 
 import com.google.gson.Gson
 import com.vikanshu.data.dto.Current
+import com.vikanshu.data.dto.forecast.Day
 
 data class Precipitation(
     val precipitationInMm: Double,
@@ -19,6 +20,12 @@ data class Precipitation(
             return Precipitation(
                 precipitationInMm = current?.precipMm ?: 0.0,
                 precipitationInInches = current?.precipIn ?: 0.0
+            )
+        }
+        fun fromForecastDayDto(current: Day?): Precipitation {
+            return Precipitation(
+                precipitationInMm = current?.totalprecipMm ?: 0.0,
+                precipitationInInches = current?.totalprecipIn ?: 0.0
             )
         }
     }

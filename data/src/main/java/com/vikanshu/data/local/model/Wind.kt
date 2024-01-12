@@ -2,6 +2,7 @@ package com.vikanshu.data.local.model
 
 import com.google.gson.Gson
 import com.vikanshu.data.dto.Current
+import com.vikanshu.data.dto.forecast.Day
 
 data class Wind(
     val windMph: Double,
@@ -17,7 +18,6 @@ data class Wind(
         fun fromJson(json: String): Wind {
             return Gson().fromJson(json, Wind::class.java)
         }
-
         fun fromCurrentDto(current: Current?): Wind {
             return Wind(
                 windDeg = current?.windDegree ?: 0.0,

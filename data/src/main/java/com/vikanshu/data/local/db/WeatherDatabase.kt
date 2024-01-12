@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.vikanshu.data.local.dao.CurrentWeatherDao
+import com.vikanshu.data.local.dao.ForecastDao
 import com.vikanshu.data.local.dao.LocationDao
 import com.vikanshu.data.local.entity.CurrentWeather
 import com.vikanshu.data.local.entity.Location
@@ -14,9 +15,7 @@ import com.vikanshu.data.local.entity.Location
 )
 @TypeConverters(value = [WeatherTyeConverters::class])
 abstract class WeatherDatabase: RoomDatabase() {
-
     abstract fun locationDao(): LocationDao
-
     abstract fun currentWeatherDao(): CurrentWeatherDao
-
+    abstract fun forecastDao(): ForecastDao
 }

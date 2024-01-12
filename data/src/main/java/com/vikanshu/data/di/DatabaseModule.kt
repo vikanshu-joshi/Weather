@@ -3,6 +3,7 @@ package com.vikanshu.data.di
 import android.content.Context
 import androidx.room.Room
 import com.vikanshu.data.local.dao.CurrentWeatherDao
+import com.vikanshu.data.local.dao.ForecastDao
 import com.vikanshu.data.local.dao.LocationDao
 import com.vikanshu.data.local.db.WeatherDatabase
 import dagger.Module
@@ -38,6 +39,12 @@ class DatabaseModule {
     @Singleton
     fun providesCurrentWeatherDao(weatherDatabase: WeatherDatabase): CurrentWeatherDao {
         return weatherDatabase.currentWeatherDao()
+    }
+
+    @Provides
+    @Singleton
+    fun providesForecastDao(weatherDatabase: WeatherDatabase): ForecastDao {
+        return weatherDatabase.forecastDao()
     }
 
 }
