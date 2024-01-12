@@ -34,7 +34,7 @@ fun HomeScreenTopBar(
         if (isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.size(20.dp),
-                strokeWidth = 4.dp,
+                strokeWidth = 2.dp,
                 strokeCap = StrokeCap.Round
             )
         }

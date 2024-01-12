@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,7 +23,7 @@ import com.vikanshu.core_ui.components.UiLoader
 import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
 import com.vikanshu.home.components.HomeScreenNoDataView
 import com.vikanshu.home.components.HomeScreenTopBar
-import com.vikanshu.home.components.HomeScreenVerticalWeatherList
+import com.vikanshu.home.components.HomeScreenWeatherList
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -43,8 +42,8 @@ fun HomeScreen(
     Scaffold {
         when (deviceSizeType) {
             DeviceSizeType.PORTRAIT -> HomeScreenPortrait(homeViewModel)
-            DeviceSizeType.LANDSCAPE -> {}
-            DeviceSizeType.TABLET -> {}
+            DeviceSizeType.LANDSCAPE -> HomeScreenLandscape(homeViewModel)
+            DeviceSizeType.TABLET -> HomeScreenLandscape(homeViewModel)
         }
     }
 }
@@ -76,7 +75,46 @@ fun HomeScreenPortrait(
             )
         }
         if (!state.isLoading && state.weather.isEmpty()) HomeScreenNoDataView()
-        if (state.weather.isNotEmpty()) HomeScreenVerticalWeatherList(data = state.weather)
+        if (state.weather.isNotEmpty()) HomeScreenWeatherList(
+            modifier = Modifier.weight(1f),
+            deviceSizeType = DeviceSizeType.PORTRAIT,
+            data = state.weather
+        )
+    }
+}
+
+@Composable
+fun HomeScreenLandscape(
+    homeViewModel: HomeViewModel
+) {
+
+    val state by homeViewModel.uiState.collectAsState()
+
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        HomeScreenTopBar(isLoading = state.isLoading) {
+            // TODO navigation search
+        }
+        if (state.isLoading && state.weather.isEmpty()) UiLoader()
+        if (state.message.isNotBlank()) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp),
+                text = state.message,
+                textAlign = TextAlign.Center,
+                fontFamily = SfDisplayProFontFamily,
+                fontWeight = FontWeight.Medium,
+                color = Color.Black
+            )
+        }
+        if (!state.isLoading && state.weather.isEmpty()) HomeScreenNoDataView()
+        if (state.weather.isNotEmpty()) HomeScreenWeatherList(
+            modifier = Modifier.weight(1f),
+            deviceSizeType = DeviceSizeType.LANDSCAPE,
+            data = state.weather
+        )
     }
 }
 

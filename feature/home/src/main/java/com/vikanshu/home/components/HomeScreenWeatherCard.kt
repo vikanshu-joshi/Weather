@@ -2,6 +2,7 @@ package com.vikanshu.home.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -54,12 +56,14 @@ fun HomeScreenWeatherCard(
                 model = currentWeather?.weatherIcon,
                 contentDescription = ""
             )
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(1f),)
             Text(
                 if (currentWeather?.timestamp != null) SimpleDateFormat(
                     "hh:mm aa",
                     Locale.US
                 ).format(currentWeather.timestamp) else "--:-- --",
+                modifier = Modifier.padding(start = 32.dp),
+                textAlign = TextAlign.End,
                 fontFamily = SfDisplayProFontFamily,
                 fontWeight = FontWeight.Bold,
                 fontSize = 17.sp,

@@ -15,6 +15,7 @@ import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.core_ui.components.NetworkNotAvailableTile
 import com.vikanshu.core_ui.ui.WeatherTheme
 import com.vikanshu.home.HomeScreen
+import com.vikanshu.search.SearchScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
