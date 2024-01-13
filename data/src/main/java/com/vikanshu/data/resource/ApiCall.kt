@@ -1,6 +1,7 @@
 package com.vikanshu.data.resource
 
 import android.util.Log
+import com.vikanshu.data.BuildConfig
 import retrofit2.HttpException
 import java.io.IOException
 

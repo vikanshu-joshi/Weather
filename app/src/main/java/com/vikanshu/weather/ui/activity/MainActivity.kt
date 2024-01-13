@@ -9,6 +9,7 @@ import com.vikanshu.core_ui.ConnectivityObserver
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.core_ui.ui.WeatherTheme
 import com.vikanshu.data.repository.WeatherRepository
+import com.vikanshu.weather.BuildConfig
 import com.vikanshu.weather.WeatherApp
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -18,9 +19,6 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var connectivityObserver: ConnectivityObserver
-
-    @Inject
-    lateinit var weatherRepository: WeatherRepository
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
