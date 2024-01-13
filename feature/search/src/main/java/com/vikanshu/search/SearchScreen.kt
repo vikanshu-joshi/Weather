@@ -52,7 +52,9 @@ fun SearchScreen(
     searchViewModel: SearchViewModel = hiltViewModel(),
     isDarkTheme: Boolean = isSystemInDarkTheme()
 ) {
-    Scaffold {
+    Scaffold(
+        containerColor = Color.White
+    ) {
         when (deviceSizeType) {
             DeviceSizeType.PORTRAIT -> {
                 SearchScreenPortrait(modifier, searchViewModel = searchViewModel, onBack = onBack)
