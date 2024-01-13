@@ -4,7 +4,7 @@ import com.vikanshu.data.dto.astro.ResponseAstro
 import com.vikanshu.data.dto.forecast.ResponseForecastWeather
 import com.vikanshu.data.dto.search.ResponseSearchLocation
 import com.vikanshu.data.resource.Constants
-import com.vikanshu.weather.dto.current.ResponseCurrentWeather
+import com.vikanshu.data.dto.current.ResponseCurrentWeather
 import retrofit2.http.GET
 import retrofit2.http.Query
 

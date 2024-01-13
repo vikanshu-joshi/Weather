@@ -9,7 +9,7 @@ import com.vikanshu.data.local.model.Pressure
 import com.vikanshu.data.local.model.Temperature
 import com.vikanshu.data.local.model.Visibility
 import com.vikanshu.data.local.model.Wind
-import com.vikanshu.weather.dto.current.ResponseCurrentWeather
+import com.vikanshu.data.dto.current.ResponseCurrentWeather
 import java.text.SimpleDateFormat
 import java.util.Date
 

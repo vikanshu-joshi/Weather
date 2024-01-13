@@ -1,10 +1,15 @@
 package com.vikanshu.data.dto.forecast
 
+import androidx.annotation.Keep
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Alerts(
+@Keep
+class Alerts {
 
-    @SerializedName("alert") var alert: ArrayList<String> = arrayListOf()
+    @Expose
+    @SerializedName("alert")
+    var alert: ArrayList<String> = arrayListOf()
 
-)
+}
