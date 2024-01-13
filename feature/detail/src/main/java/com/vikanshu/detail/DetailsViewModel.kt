@@ -8,6 +8,7 @@ import com.vikanshu.data.repository.WeatherRepository
 import com.vikanshu.data.resource.CommunicationResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -29,6 +30,7 @@ class DetailsViewModel @Inject constructor(
             isLoading = false,
             message = "",
             forecast = null,
+            astro = null,
             currentWeather = null
         )
     )
@@ -43,6 +45,7 @@ class DetailsViewModel @Inject constructor(
                     isLoading = true,
                     message = "",
                     forecast = null,
+                    astro = null,
                     currentWeather = null
                 )
             )
@@ -53,6 +56,7 @@ class DetailsViewModel @Inject constructor(
                     isLoading = false,
                     message = "",
                     forecast = result,
+                    astro = null,
                     currentWeather = currentWeather
                 )
             )
@@ -68,16 +72,19 @@ class DetailsViewModel @Inject constructor(
                     isLoading = true,
                     message = "",
                     forecast = uiState.value.forecast,
+                    astro = uiState.value.astro,
                     currentWeather = uiState.value.currentWeather
                 )
             )
-            val result = forecastRepository.getCurrentForecast(name)
+            val astroDetails = async { weatherRepository.getAstroDetails(name) }.await()
+            val result = async { forecastRepository.getCurrentForecast(name) }.await()
             if (result is CommunicationResult.Success) {
                 uiState.emit(
                     DetailScreenUiState(
                         isLoading = false,
                         message = "",
                         forecast = result.data,
+                        astro = if (astroDetails is CommunicationResult.Success) astroDetails.data else null,
                         currentWeather = uiState.value.currentWeather
                     )
                 )
@@ -87,6 +94,7 @@ class DetailsViewModel @Inject constructor(
                         isLoading = false,
                         message = result.error.errorMessage,
                         forecast = uiState.value.forecast,
+                        astro = if (astroDetails is CommunicationResult.Success) astroDetails.data else uiState.value.astro,
                         currentWeather = uiState.value.currentWeather
                     )
                 )

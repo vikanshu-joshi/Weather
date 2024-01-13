@@ -22,11 +22,13 @@ import com.vikanshu.core_ui.R
 import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
 import com.vikanshu.core_ui.ui.color0076FF
 import com.vikanshu.data.local.entity.CurrentWeather
+import com.vikanshu.data.local.model.Astro
 import kotlin.math.roundToInt
 
 @Composable
 fun ForecastDetailMoreInfo(
-    currentWeather: CurrentWeather
+    currentWeather: CurrentWeather,
+    astro: Astro?
 ) {
     Column(
         modifier = Modifier
@@ -48,6 +50,15 @@ fun ForecastDetailMoreInfo(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                if (astro != null) {
+                    ForecastDetailInfoCardItem(
+                        title = "Sunrise",
+                        icon = painterResource(id = R.drawable.ic_weather_sunrise),
+                        value = astro.sunrise,
+                        valueColor = color0076FF
+                    )
+                    Spacer(modifier = Modifier.height(36.dp))
+                }
                 ForecastDetailInfoCardItem(
                     title = "Humidity",
                     icon = painterResource(id = R.drawable.ic_weather_drop),
@@ -81,6 +92,15 @@ fun ForecastDetailMoreInfo(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                if (astro != null) {
+                    ForecastDetailInfoCardItem(
+                        title = "Sunset",
+                        icon = painterResource(id = R.drawable.ic_weather_sunset),
+                        value = astro.sunset,
+                        valueColor = color0076FF
+                    )
+                    Spacer(modifier = Modifier.height(36.dp))
+                }
                 ForecastDetailInfoCardItem(
                     title = "Feels Like",
                     icon = painterResource(id = R.drawable.ic_weather_feels_like),

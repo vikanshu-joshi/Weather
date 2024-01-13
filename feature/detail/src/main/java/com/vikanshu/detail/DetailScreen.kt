@@ -139,7 +139,7 @@ fun DetailScreenPortrait(
             }
             if (state.currentWeather != null) {
                 item {
-                    ForecastDetailMoreInfo(currentWeather = state.currentWeather!!)
+                    ForecastDetailMoreInfo(currentWeather = state.currentWeather!!, astro = state.astro)
                 }
             }
             item {
@@ -178,7 +178,7 @@ fun DetailScreenLandscape(
                     forecast = state.forecast,
                     currentWeather = state.currentWeather!!
                 )
-                ForecastDetailMoreInfo(currentWeather = state.currentWeather!!)
+                ForecastDetailMoreInfo(currentWeather = state.currentWeather!!, astro = state.astro)
             }
             Spacer(modifier = Modifier.height(50.dp))
         }

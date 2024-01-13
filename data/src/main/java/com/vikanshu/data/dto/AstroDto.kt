@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 @Keep
-class Astro public constructor() {
+class AstroDto public constructor() {
 
     @Expose
     @SerializedName("sunrise") var sunrise: String? = null

@@ -3,7 +3,7 @@ package com.vikanshu.data.dto.forecast
 import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.vikanshu.data.dto.Astro
+import com.vikanshu.data.dto.AstroDto
 
 @Keep
 class Forecastday {
@@ -19,7 +19,7 @@ class Forecastday {
     var day: Day? = Day()
     @Expose
     @SerializedName("astro")
-    var astro: Astro? = Astro()
+    var astroDto: AstroDto? = AstroDto()
     @Expose
     @SerializedName("hour")
     var hour: ArrayList<Hour> = arrayListOf()

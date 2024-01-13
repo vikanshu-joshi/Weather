@@ -1,6 +1,7 @@
 package com.vikanshu.data.repository
 
 import com.vikanshu.data.local.entity.CurrentWeather
+import com.vikanshu.data.local.model.Astro
 import com.vikanshu.data.resource.CommunicationResult
 
 interface WeatherRepository {
@@ -9,4 +10,7 @@ interface WeatherRepository {
     suspend fun getCurrentWeather(
         name: String
     ): CommunicationResult<CurrentWeather>
+    suspend fun getAstroDetails(
+        name: String
+    ): CommunicationResult<Astro>
 }
