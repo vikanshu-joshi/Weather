@@ -28,11 +28,12 @@ import java.util.Locale
 
 @Composable
 fun ForecastDetailScreenWeatherCard(
+    modifier: Modifier = Modifier,
     forecast: Forecast?,
     currentWeather: CurrentWeather
 ) {
     Card(
-        modifier = Modifier.padding(horizontal = 32.dp),
+        modifier = modifier,
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {

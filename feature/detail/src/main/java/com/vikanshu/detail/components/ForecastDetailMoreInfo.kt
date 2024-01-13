@@ -76,6 +76,7 @@ fun ForecastDetailMoreInfo(
                     valueColor = color0076FF
                 )
             }
+            Spacer(modifier = Modifier.height(18.dp))
             Column(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
