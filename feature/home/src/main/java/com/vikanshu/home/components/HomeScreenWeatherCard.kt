@@ -56,7 +56,7 @@ fun HomeScreenWeatherCard(
                 fontFamily = SfDisplayProFontFamily,
                 fontWeight = FontWeight.Bold,
                 fontSize = 17.sp,
-                color = Color.Black.copy(alpha = 0.5f)
+                color = Color.Black.copy(alpha = 0.65f)
             )
             Spacer(modifier = Modifier.width(8.dp))
             AsyncImage(

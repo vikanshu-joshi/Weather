@@ -43,7 +43,8 @@ fun ForecastDetailsScreenTopBar(
             text = forecast?.location?.name ?: name,
             fontFamily = SfDisplayProFontFamily,
             fontSize = 30.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = Color.Black
         )
     }, navigationIcon = {
         IconButton(onClick = onBack) {
@@ -58,12 +59,13 @@ fun ForecastDetailsScreenTopBar(
             CircularProgressIndicator(
                 modifier = Modifier.size(20.dp),
                 strokeWidth = 2.dp,
-                strokeCap = StrokeCap.Round
+                strokeCap = StrokeCap.Round,
+                color = Color.Black
             )
             Spacer(modifier = Modifier.width(16.dp))
         } else {
             IconButton(onClick = onRefresh) {
-                Icon(imageVector = Icons.Default.Refresh, contentDescription = "")
+                Icon(imageVector = Icons.Default.Refresh, contentDescription = "", tint = Color.Black)
             }
         }
     }, colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White))

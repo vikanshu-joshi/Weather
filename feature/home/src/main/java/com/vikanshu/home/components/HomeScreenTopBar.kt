@@ -30,18 +30,20 @@ fun HomeScreenTopBar(
             text = "Today",
             fontFamily = SfDisplayProFontFamily,
             fontWeight = FontWeight.Bold,
-            fontSize = 30.sp
+            fontSize = 30.sp,
+            color = Color.Black
         )
     }, actions = {
         if (isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.size(20.dp),
                 strokeWidth = 2.dp,
-                strokeCap = StrokeCap.Round
+                strokeCap = StrokeCap.Round,
+                color = Color.Black
             )
         }
         IconButton(onClick = onSearch) {
-            Icon(imageVector = Icons.Outlined.AddCircle, contentDescription = "")
+            Icon(imageVector = Icons.Outlined.AddCircle, contentDescription = "", tint = Color.Black)
         }
     }, colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White))
 }

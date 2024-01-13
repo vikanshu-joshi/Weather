@@ -22,7 +22,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -38,12 +40,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vikanshu.core_ui.ConnectivityObserver
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.core_ui.components.UiLoader
 import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
 import com.vikanshu.core_ui.ui.colorA6A6A6
+import com.vikanshu.core_ui.ui.colorE8E8E8
+import com.vikanshu.search.components.SearchScreenSearchBar
+import com.vikanshu.search.components.SearchTopBar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -56,7 +60,7 @@ fun SearchScreen(
     isDarkTheme: Boolean = isSystemInDarkTheme()
 ) {
 
-    LaunchedEffect(key1 = connectivityState) {
+    LaunchedEffect(key1 = connectivityState, key2 = searchViewModel.searchQuery.value) {
         if (connectivityState == ConnectivityObserver.Status.NetworkAvailable) searchViewModel.refresh()
     }
 
@@ -69,17 +73,16 @@ fun SearchScreen(
             }
 
             DeviceSizeType.LANDSCAPE -> {
-                SearchScreenLandscape(modifier, searchViewModel = searchViewModel, onBack = onBack)
+                SearchScreenLandscape(modifier, searchViewModel = searchViewModel)
             }
 
             DeviceSizeType.TABLET -> {
-                SearchScreenLandscape(modifier, searchViewModel = searchViewModel, onBack = onBack)
+                SearchScreenLandscape(modifier, searchViewModel = searchViewModel)
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreenPortrait(
     modifier: Modifier = Modifier,
@@ -93,56 +96,10 @@ fun SearchScreenPortrait(
         modifier = modifier.fillMaxSize()
     ) {
         item {
-            Row {
-                TopAppBar(
-                    title = {
-                        Text(
-                            "Add City",
-                            fontFamily = SfDisplayProFontFamily,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 28.sp
-                        )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onBack) {
-                            Icon(
-                                imageVector = Icons.Outlined.ArrowBack,
-                                contentDescription = "",
-                                tint = Color.Black
-                            )
-                        }
-                    },
-                    scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-                )
-            }
+            SearchTopBar(onBack = onBack)
         }
         item {
-            SearchBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                enabled = !uiState.isLoading,
-                query = searchQuery,
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Search,
-                        contentDescription = "",
-                        tint = if (searchQuery.length > 3) Color.Black else colorA6A6A6
-                    )
-                },
-                onQueryChange = searchViewModel::onSearchQueryChanged,
-                onSearch = searchViewModel::onSearchQueryChanged,
-                active = false,
-                onActiveChange = {},
-                placeholder = {
-                    Text(
-                        text = "Enter City, Region or Place",
-                        fontFamily = SfDisplayProFontFamily,
-                        fontWeight = FontWeight.Medium,
-                        color = colorA6A6A6
-                    )
-                }) {
-            }
+            SearchScreenSearchBar(query = searchQuery, isLoading = uiState.isLoading, onSearchQueryChanged = searchViewModel::onSearchQueryChanged)
         }
         if (uiState.isLoading) {
             item {
@@ -158,7 +115,7 @@ fun SearchScreenPortrait(
                     text = uiState.message,
                     textAlign = TextAlign.Center,
                     fontFamily = SfDisplayProFontFamily,
-                    fontWeight = FontWeight.Medium,
+                    fontWeight = FontWeight.SemiBold,
                     color = Color.Black
                 )
             }
@@ -189,7 +146,6 @@ fun SearchScreenPortrait(
 @Composable
 fun SearchScreenLandscape(
     modifier: Modifier = Modifier,
-    onBack: () -> Unit,
     searchViewModel: SearchViewModel
 ) {
 
@@ -200,42 +156,10 @@ fun SearchScreenLandscape(
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        SearchBar(
-            modifier = Modifier
-                .fillMaxWidth(),
-            enabled = !uiState.isLoading,
-            query = searchQuery,
-            leadingIcon = {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        imageVector = Icons.Outlined.ArrowBack,
-                        contentDescription = "",
-                        tint = Color.Black
-                    )
-                }
-            },
-            onQueryChange = searchViewModel::onSearchQueryChanged,
-            onSearch = searchViewModel::onSearchQueryChanged,
-            active = false,
-            onActiveChange = {},
-            placeholder = {
-                Text(
-                    text = "Enter City, Region or Place",
-                    fontFamily = SfDisplayProFontFamily,
-                    fontWeight = FontWeight.Medium,
-                    color = colorA6A6A6
-                )
-            }, content = {})
+        SearchScreenSearchBar(query = searchQuery, isLoading = uiState.isLoading, onSearchQueryChanged = searchViewModel::onSearchQueryChanged)
         Spacer(modifier = Modifier.height(8.dp))
         if (uiState.isLoading) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 32.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
+            UiLoader()
         }
         if (uiState.message.isNotBlank()) {
             Text(
@@ -245,7 +169,7 @@ fun SearchScreenLandscape(
                 text = uiState.message,
                 textAlign = TextAlign.Center,
                 fontFamily = SfDisplayProFontFamily,
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.SemiBold,
                 color = Color.Black
             )
         }
@@ -267,5 +191,4 @@ fun SearchScreenLandscape(
             }
         }
     }
-
 }

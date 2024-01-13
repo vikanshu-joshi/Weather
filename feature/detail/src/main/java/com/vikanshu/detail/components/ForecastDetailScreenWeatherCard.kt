@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
 import com.vikanshu.core_ui.ui.color0076FF
+import com.vikanshu.core_ui.ui.color7F7F7F
+import com.vikanshu.core_ui.ui.colorA6A6A6
 import com.vikanshu.data.local.entity.CurrentWeather
 import com.vikanshu.data.local.entity.Forecast
 import java.text.SimpleDateFormat
@@ -49,7 +51,7 @@ fun ForecastDetailScreenWeatherCard(
                 fontFamily = SfDisplayProFontFamily,
                 fontWeight = FontWeight.Bold,
                 fontSize = 17.sp,
-                color = Color.Black.copy(alpha = 0.5f)
+                color = Color.Black.copy(alpha = 0.65f)
             )
             Spacer(modifier = Modifier.width(8.dp))
             AsyncImage(
