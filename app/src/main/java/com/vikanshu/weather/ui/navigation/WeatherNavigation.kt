@@ -1,5 +1,8 @@
 package com.vikanshu.weather.ui.navigation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
@@ -27,7 +30,20 @@ fun WeatherNavigation(
         navController = navController,
         startDestination = WeatherAppScreens.Home.route
     ) {
-        composable(route = WeatherAppScreens.Home.route) {
+        composable(route = WeatherAppScreens.Home.route,
+            enterTransition = {
+                slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(500))
+            },
+            popEnterTransition = {
+                slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(500))
+            },
+            exitTransition = {
+                slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(500))
+            },
+            popExitTransition = {
+                slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(500))
+            }
+        ) {
             HomeScreen(deviceSizeType = deviceSizeType,
                 connectivityState = connectivityState,
                 onSearch = {
@@ -41,7 +57,19 @@ fun WeatherNavigation(
                     )
                 })
         }
-        composable(route = WeatherAppScreens.Search.route) {
+        composable(route = WeatherAppScreens.Search.route,
+            enterTransition = {
+                slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(500))
+            },
+            popEnterTransition = {
+                slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(500))
+            },
+            exitTransition = {
+                slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(500))
+            },
+            popExitTransition = {
+                slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(500))
+            }) {
             SearchScreen(
                 deviceSizeType = deviceSizeType,
                 connectivityState = connectivityState, onBack = navController::navigateUp
@@ -54,7 +82,19 @@ fun WeatherNavigation(
                 ) {
                     type = NavType.StringType
                 }
-            )
+            ),
+            enterTransition = {
+                slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(500))
+            },
+            popEnterTransition = {
+                slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(500))
+            },
+            exitTransition = {
+                slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(500))
+            },
+            popExitTransition = {
+                slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(500))
+            }
         ) {
             val name = it.arguments?.getString("name") ?: ""
             DetailScreen(
