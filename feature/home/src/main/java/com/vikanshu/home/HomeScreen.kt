@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.vikanshu.core_ui.ConnectivityObserver
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.core_ui.components.UiLoader
 import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
@@ -32,6 +33,7 @@ import com.vikanshu.home.components.HomeScreenWeatherList
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    connectivityState: ConnectivityObserver.Status,
     deviceSizeType: DeviceSizeType,
     onSearch: () -> Unit,
     onWeatherDetail: (CurrentWeather) -> Unit,
@@ -41,7 +43,7 @@ fun HomeScreen(
 
     val state by homeViewModel.uiState.collectAsState()
 
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(key1 = Unit, key2 = connectivityState) {
         homeViewModel.initializeData()
     }
 

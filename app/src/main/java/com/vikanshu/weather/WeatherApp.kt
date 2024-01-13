@@ -16,11 +16,10 @@ fun WeatherApp(
     connectivityObserver: ConnectivityObserver,
     deviceSizeType: DeviceSizeType
 ) {
-    val connectivityState = connectivityObserver.observe()
-        .collectAsState(initial = ConnectivityObserver.Status.NetworkAvailable)
+    val connectivityState = connectivityObserver.observe().collectAsState(initial = ConnectivityObserver.Status.NetworkAvailable)
 
     Column {
-        WeatherNavigation(modifier = Modifier.weight(1f), deviceSizeType = deviceSizeType)
+        WeatherNavigation(modifier = Modifier.weight(1f), connectivityState = connectivityState.value, deviceSizeType = deviceSizeType)
         AnimatedVisibility(visible = connectivityState.value == ConnectivityObserver.Status.NetworkUnavailable) {
             NetworkNotAvailableTile(modifier = Modifier.animateContentSize())
         }

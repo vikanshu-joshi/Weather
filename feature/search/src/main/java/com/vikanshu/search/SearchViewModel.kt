@@ -48,6 +48,10 @@ class SearchViewModel @Inject constructor(
         }
     }
 
+    fun refresh() {
+        searchLocations()
+    }
+
     fun onSearchQueryChanged(query: String) {
         searchQuery.value = query
         if (query.length >= 3) {

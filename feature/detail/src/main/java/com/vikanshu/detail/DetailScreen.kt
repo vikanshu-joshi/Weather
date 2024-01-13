@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.vikanshu.core_ui.ConnectivityObserver
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.core_ui.components.UiLoader
 import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
@@ -43,12 +44,13 @@ import com.vikanshu.detail.components.ForecastDetailsScreenTopBar
 fun DetailScreen(
     modifier: Modifier = Modifier,
     name: String,
+    connectivityState: ConnectivityObserver.Status,
     onBack: () -> Unit,
     detailsViewModel: DetailsViewModel = hiltViewModel(),
     deviceSizeType: DeviceSizeType,
 ) {
 
-    LaunchedEffect(key1 = name) {
+    LaunchedEffect(key1 = name, key2 = connectivityState) {
         detailsViewModel.loadData(name)
     }
 

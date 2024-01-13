@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.vikanshu.core_ui.ConnectivityObserver
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.core_ui.components.UiLoader
 import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
@@ -48,10 +50,16 @@ import com.vikanshu.core_ui.ui.colorA6A6A6
 fun SearchScreen(
     modifier: Modifier = Modifier,
     deviceSizeType: DeviceSizeType,
+    connectivityState: ConnectivityObserver.Status,
     onBack: () -> Unit,
     searchViewModel: SearchViewModel = hiltViewModel(),
     isDarkTheme: Boolean = isSystemInDarkTheme()
 ) {
+
+    LaunchedEffect(key1 = connectivityState) {
+        if (connectivityState == ConnectivityObserver.Status.NetworkAvailable) searchViewModel.refresh()
+    }
+
     Scaffold(
         containerColor = Color.White
     ) {

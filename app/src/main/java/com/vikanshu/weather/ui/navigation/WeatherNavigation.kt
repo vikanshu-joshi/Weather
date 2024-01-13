@@ -7,8 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.vikanshu.core_ui.ConnectivityObserver
 import com.vikanshu.core_ui.DeviceSizeType
-import com.vikanshu.data.local.entity.CurrentWeather
 import com.vikanshu.detail.DetailScreen
 import com.vikanshu.home.HomeScreen
 import com.vikanshu.search.SearchScreen
@@ -16,26 +16,36 @@ import com.vikanshu.search.SearchScreen
 @Composable
 fun WeatherNavigation(
     modifier: Modifier = Modifier,
+    connectivityState: ConnectivityObserver.Status,
     deviceSizeType: DeviceSizeType
 ) {
 
     val navController = rememberNavController()
 
-    NavHost(modifier = modifier, navController = navController, startDestination = WeatherAppScreens.Home.route) {
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = WeatherAppScreens.Home.route
+    ) {
         composable(route = WeatherAppScreens.Home.route) {
-            HomeScreen(deviceSizeType = deviceSizeType, onSearch = {
-                navController.navigate(WeatherAppScreens.Search.route)
-            }, onWeatherDetail = {
-                navController.navigate(
-                    WeatherAppScreens.Forecast.route.replace(
-                        "{name}",
-                        it.location.name
+            HomeScreen(deviceSizeType = deviceSizeType,
+                connectivityState = connectivityState,
+                onSearch = {
+                    navController.navigate(WeatherAppScreens.Search.route)
+                }, onWeatherDetail = {
+                    navController.navigate(
+                        WeatherAppScreens.Forecast.route.replace(
+                            "{name}",
+                            it.location.name
+                        )
                     )
-                )
-            })
+                })
         }
         composable(route = WeatherAppScreens.Search.route) {
-            SearchScreen(deviceSizeType = deviceSizeType, onBack = navController::navigateUp)
+            SearchScreen(
+                deviceSizeType = deviceSizeType,
+                connectivityState = connectivityState, onBack = navController::navigateUp
+            )
         }
         composable(route = WeatherAppScreens.Forecast.route,
             arguments = listOf(
@@ -50,6 +60,7 @@ fun WeatherNavigation(
             DetailScreen(
                 name = name,
                 deviceSizeType = deviceSizeType,
+                connectivityState = connectivityState,
                 onBack = navController::navigateUp
             )
         }
