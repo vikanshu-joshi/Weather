@@ -2,6 +2,7 @@ package com.vikanshu.detail
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,18 +19,20 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.core_ui.components.UiLoader
 import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
-import com.vikanshu.data.local.entity.CurrentWeather
 import com.vikanshu.detail.components.ForecastDetailDailyTile
 import com.vikanshu.detail.components.ForecastDetailMoreInfo
 import com.vikanshu.detail.components.ForecastDetailScreenWeatherCard
@@ -39,14 +42,14 @@ import com.vikanshu.detail.components.ForecastDetailsScreenTopBar
 @Composable
 fun DetailScreen(
     modifier: Modifier = Modifier,
-    currentWeather: CurrentWeather,
-    detailsViewModel: DetailsViewModel = viewModel(),
+    name: String,
+    onBack: () -> Unit,
+    detailsViewModel: DetailsViewModel = hiltViewModel(),
     deviceSizeType: DeviceSizeType,
 ) {
 
-    LaunchedEffect(key1 = Unit) {
-        detailsViewModel.currentWeather = currentWeather
-        detailsViewModel.loadData()
+    LaunchedEffect(key1 = name) {
+        detailsViewModel.loadData(name)
     }
 
     Scaffold(
@@ -56,18 +59,18 @@ fun DetailScreen(
     ) {
         when (deviceSizeType) {
             DeviceSizeType.PORTRAIT -> DetailScreenPortrait(
-                currentWeather = currentWeather,
-                detailsViewModel = detailsViewModel
+                detailsViewModel = detailsViewModel,
+                onBack = onBack
             )
 
             DeviceSizeType.LANDSCAPE -> DetailScreenLandscape(
-                currentWeather = currentWeather,
-                detailsViewModel = detailsViewModel
+                detailsViewModel = detailsViewModel,
+                onBack = onBack
             )
 
             DeviceSizeType.TABLET -> DetailScreenLandscape(
-                currentWeather = currentWeather,
-                detailsViewModel = detailsViewModel
+                detailsViewModel = detailsViewModel,
+                onBack = onBack
             )
         }
     }
@@ -76,7 +79,7 @@ fun DetailScreen(
 
 @Composable
 fun DetailScreenPortrait(
-    currentWeather: CurrentWeather,
+    onBack: () -> Unit,
     detailsViewModel: DetailsViewModel = viewModel()
 ) {
 
@@ -85,12 +88,21 @@ fun DetailScreenPortrait(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
+
         ForecastDetailsScreenTopBar(
             isLoading = state.isLoading,
             forecast = state.forecast,
-            currentWeather = currentWeather,
-            onRefresh = detailsViewModel::fetchForecastData
+            name = detailsViewModel.name,
+            onRefresh = detailsViewModel::fetchForecastData,
+            onBack = onBack
         )
+
+        if (state.isLoading && state.currentWeather == null) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                UiLoader()
+            }
+        }
+
         if (state.message.isNotBlank()) {
             Text(
                 modifier = Modifier
@@ -103,16 +115,19 @@ fun DetailScreenPortrait(
                 color = Color.Black
             )
         }
+
         LazyColumn {
             item {
                 Spacer(modifier = Modifier.height(12.dp))
             }
-            item {
-                ForecastDetailScreenWeatherCard(
-                    modifier = Modifier.padding(horizontal = 35.dp),
-                    forecast = state.forecast,
-                    currentWeather = currentWeather
-                )
+            if (state.currentWeather != null) {
+                item {
+                    ForecastDetailScreenWeatherCard(
+                        modifier = Modifier.padding(horizontal = 35.dp),
+                        forecast = state.forecast,
+                        currentWeather = state.currentWeather!!
+                    )
+                }
             }
             item { Spacer(modifier = Modifier.height(22.dp)) }
             if (!state.forecast?.forecastDays.isNullOrEmpty()) {
@@ -120,8 +135,10 @@ fun DetailScreenPortrait(
                     ForecastDetailDailyTile(state.forecast?.forecastDays!![it])
                 }
             }
-            item {
-                ForecastDetailMoreInfo(currentWeather = currentWeather)
+            if (state.currentWeather != null) {
+                item {
+                    ForecastDetailMoreInfo(currentWeather = state.currentWeather!!)
+                }
             }
             item {
                 Spacer(modifier = Modifier.height(150.dp))
@@ -132,7 +149,7 @@ fun DetailScreenPortrait(
 
 @Composable
 fun DetailScreenLandscape(
-    currentWeather: CurrentWeather,
+    onBack: () -> Unit,
     detailsViewModel: DetailsViewModel = viewModel()
 ) {
 
@@ -148,20 +165,27 @@ fun DetailScreenLandscape(
             ForecastDetailsScreenTopBar(
                 isLoading = state.isLoading,
                 forecast = state.forecast,
-                currentWeather = currentWeather,
-                onRefresh = detailsViewModel::fetchForecastData
+                name = detailsViewModel.name,
+                onRefresh = detailsViewModel::fetchForecastData,
+                onBack = onBack
             )
             Spacer(modifier = Modifier.height(12.dp))
-            ForecastDetailScreenWeatherCard(
-                modifier = Modifier.padding(start = 28.dp),
-                forecast = state.forecast,
-                currentWeather = currentWeather
-            )
-            ForecastDetailMoreInfo(currentWeather = currentWeather)
+            if (state.currentWeather != null) {
+                ForecastDetailScreenWeatherCard(
+                    modifier = Modifier.padding(start = 28.dp),
+                    forecast = state.forecast,
+                    currentWeather = state.currentWeather!!
+                )
+                ForecastDetailMoreInfo(currentWeather = state.currentWeather!!)
+            }
             Spacer(modifier = Modifier.height(50.dp))
         }
         Spacer(modifier = Modifier.width(12.dp))
-        LazyColumn(modifier = Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight(), verticalArrangement = Arrangement.Center
+        ) {
             if (state.isLoading && state.forecast?.forecastDays.isNullOrEmpty()) {
                 item { UiLoader() }
             }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vikanshu.data.local.entity.CurrentWeather
 import com.vikanshu.data.repository.ForecastRepository
+import com.vikanshu.data.repository.WeatherRepository
 import com.vikanshu.data.resource.CommunicationResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -16,36 +17,43 @@ import javax.inject.Named
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     @Named("io") private val ioDispatcher: CoroutineDispatcher,
+    private val weatherRepository: WeatherRepository,
     private val forecastRepository: ForecastRepository
 ) : ViewModel() {
 
-    lateinit var currentWeather: CurrentWeather
+    var name = ""
+        private set
 
     var uiState = MutableStateFlow(
         DetailScreenUiState(
             isLoading = false,
             message = "",
-            forecast = null
+            forecast = null,
+            currentWeather = null
         )
     )
         private set
 
 
-    fun loadData() {
+    fun loadData(name: String) {
         viewModelScope.launch(ioDispatcher) {
+            this@DetailsViewModel.name = name
             uiState.emit(
                 DetailScreenUiState(
                     isLoading = true,
                     message = "",
-                    forecast = null
+                    forecast = null,
+                    currentWeather = null
                 )
             )
-            val result = forecastRepository.getForecastFromDB(currentWeather.location.name)
+            val currentWeather = weatherRepository.getWeatherFromDB(name)
+            val result = forecastRepository.getForecastFromDB(name)
             uiState.emit(
                 DetailScreenUiState(
-                    isLoading = true,
+                    isLoading = false,
                     message = "",
-                    forecast = result
+                    forecast = result,
+                    currentWeather = currentWeather
                 )
             )
             fetchForecastData()
@@ -53,21 +61,24 @@ class DetailsViewModel @Inject constructor(
     }
 
     fun fetchForecastData() {
+        if (uiState.value.isLoading) return
         viewModelScope.launch(ioDispatcher) {
             uiState.emit(
                 DetailScreenUiState(
                     isLoading = true,
                     message = "",
-                    forecast = uiState.value.forecast
+                    forecast = uiState.value.forecast,
+                    currentWeather = uiState.value.currentWeather
                 )
             )
-            val result = forecastRepository.getCurrentForecast(currentWeather.location.name)
+            val result = forecastRepository.getCurrentForecast(name)
             if (result is CommunicationResult.Success) {
                 uiState.emit(
                     DetailScreenUiState(
                         isLoading = false,
                         message = "",
-                        forecast = result.data
+                        forecast = result.data,
+                        currentWeather = uiState.value.currentWeather
                     )
                 )
             } else if (result is CommunicationResult.Error) {
@@ -75,7 +86,8 @@ class DetailsViewModel @Inject constructor(
                     DetailScreenUiState(
                         isLoading = false,
                         message = result.error.errorMessage,
-                        forecast = uiState.value.forecast
+                        forecast = uiState.value.forecast,
+                        currentWeather = uiState.value.currentWeather
                     )
                 )
             }

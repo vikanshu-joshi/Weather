@@ -34,20 +34,19 @@ import java.util.Locale
 fun ForecastDetailsScreenTopBar(
     isLoading: Boolean,
     forecast: Forecast?,
-    currentWeather: CurrentWeather,
-    onRefresh: () -> Unit
+    name: String,
+    onRefresh: () -> Unit,
+    onBack: () -> Unit
 ) {
     TopAppBar(title = {
         Text(
-            text = forecast?.location?.name ?: currentWeather.location.name,
+            text = forecast?.location?.name ?: name,
             fontFamily = SfDisplayProFontFamily,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
         )
     }, navigationIcon = {
-        IconButton(onClick = {
-
-        }) {
+        IconButton(onClick = onBack) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "",

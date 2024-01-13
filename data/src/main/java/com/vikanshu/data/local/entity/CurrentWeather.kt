@@ -2,6 +2,7 @@ package com.vikanshu.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
 import com.vikanshu.data.local.model.AirQuality
 import com.vikanshu.data.local.model.Precipitation
 import com.vikanshu.data.local.model.Pressure
@@ -31,7 +32,10 @@ data class CurrentWeather(
     @PrimaryKey
     var id = location.name
 
+    fun toJson() = Gson().toJson(this)
+
     companion object {
+        fun fromJson(json: String) = Gson().fromJson(json, CurrentWeather::class.java)
         fun fromCurrentWeatherDto(current: ResponseCurrentWeather): CurrentWeather {
             return CurrentWeather(
                 location = Location.fromLocationDto(current.locationDto),

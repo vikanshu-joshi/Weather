@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.core_ui.components.UiLoader
@@ -47,21 +48,22 @@ import com.vikanshu.core_ui.ui.colorA6A6A6
 fun SearchScreen(
     modifier: Modifier = Modifier,
     deviceSizeType: DeviceSizeType,
-    searchViewModel: SearchViewModel = viewModel(),
+    onBack: () -> Unit,
+    searchViewModel: SearchViewModel = hiltViewModel(),
     isDarkTheme: Boolean = isSystemInDarkTheme()
 ) {
     Scaffold {
         when (deviceSizeType) {
             DeviceSizeType.PORTRAIT -> {
-                SearchScreenPortrait(modifier, searchViewModel)
+                SearchScreenPortrait(modifier, searchViewModel = searchViewModel, onBack = onBack)
             }
 
             DeviceSizeType.LANDSCAPE -> {
-                SearchScreenLandscape(modifier, searchViewModel)
+                SearchScreenLandscape(modifier, searchViewModel = searchViewModel, onBack = onBack)
             }
 
             DeviceSizeType.TABLET -> {
-                SearchScreenLandscape(modifier, searchViewModel)
+                SearchScreenLandscape(modifier, searchViewModel = searchViewModel, onBack = onBack)
             }
         }
     }
@@ -71,6 +73,7 @@ fun SearchScreen(
 @Composable
 fun SearchScreenPortrait(
     modifier: Modifier = Modifier,
+    onBack: () -> Unit,
     searchViewModel: SearchViewModel
 ) {
     val uiState by searchViewModel.uiState.collectAsState()
@@ -91,9 +94,7 @@ fun SearchScreenPortrait(
                         )
                     },
                     navigationIcon = {
-                        IconButton(onClick = {
-                            // TODO navigation
-                        }) {
+                        IconButton(onClick = onBack) {
                             Icon(
                                 imageVector = Icons.Outlined.ArrowBack,
                                 contentDescription = "",
@@ -178,6 +179,7 @@ fun SearchScreenPortrait(
 @Composable
 fun SearchScreenLandscape(
     modifier: Modifier = Modifier,
+    onBack: () -> Unit,
     searchViewModel: SearchViewModel
 ) {
 
@@ -194,7 +196,7 @@ fun SearchScreenLandscape(
             enabled = !uiState.isLoading,
             query = searchQuery,
             leadingIcon = {
-                IconButton(onClick = { }) {
+                IconButton(onClick = onBack) {
                     Icon(
                         imageVector = Icons.Outlined.ArrowBack,
                         contentDescription = "",

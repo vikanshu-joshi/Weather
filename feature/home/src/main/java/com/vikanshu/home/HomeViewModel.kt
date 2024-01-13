@@ -58,17 +58,17 @@ class HomeViewModel @Inject constructor(
             }.sortedBy { it.location.name }
             uiState.emit(
                 HomeUiState(
-                    isLoading = true,
+                    isLoading = false,
                     message = "",
                     weather = weatherState
                 )
             )
-            delay(2000L)
             fetchWeatherUpdates()
         }
     }
 
     private fun fetchWeatherUpdates() {
+        if (uiState.value.isLoading) return
         viewModelScope.launch(ioDispatcher) {
             val weatherStateCalls = mutableListOf<Deferred<CommunicationResult<CurrentWeather>>>()
             for (i in savedLocations) {

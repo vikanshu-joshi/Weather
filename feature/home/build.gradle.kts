@@ -51,6 +51,7 @@ dependencies {
     implementation(Kotlin.coroutinesAndroid)
 
     implementation(Hilt.hilt)
+    implementation(Hilt.hiltNavigationCompose)
     kapt(Hilt.hiltCompiler)
 
     implementation(Google.gson)

@@ -18,10 +18,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.core_ui.components.UiLoader
 import com.vikanshu.core_ui.ui.SfDisplayProFontFamily
+import com.vikanshu.data.local.entity.CurrentWeather
 import com.vikanshu.home.components.HomeScreenNoDataView
 import com.vikanshu.home.components.HomeScreenTopBar
 import com.vikanshu.home.components.HomeScreenWeatherList
@@ -32,9 +33,10 @@ import com.vikanshu.home.components.HomeScreenWeatherList
 fun HomeScreen(
     modifier: Modifier = Modifier,
     deviceSizeType: DeviceSizeType,
-    onSearch: () -> Unit = {},
+    onSearch: () -> Unit,
+    onWeatherDetail: (CurrentWeather) -> Unit,
     isDarkTheme: Boolean = isSystemInDarkTheme(),
-    homeViewModel: HomeViewModel = viewModel()
+    homeViewModel: HomeViewModel = hiltViewModel()
 ) {
 
     val state by homeViewModel.uiState.collectAsState()
@@ -48,9 +50,23 @@ fun HomeScreen(
         containerColor = Color.White,
     ) {
         when (deviceSizeType) {
-            DeviceSizeType.PORTRAIT -> HomeScreenPortrait(state, onSearch)
-            DeviceSizeType.LANDSCAPE -> HomeScreenLandscape(state, onSearch)
-            DeviceSizeType.TABLET -> HomeScreenTablet(state, onSearch)
+            DeviceSizeType.PORTRAIT -> HomeScreenPortrait(
+                state,
+                onSearch = onSearch,
+                onWeatherDetail = onWeatherDetail
+            )
+
+            DeviceSizeType.LANDSCAPE -> HomeScreenLandscape(
+                state,
+                onSearch = onSearch,
+                onWeatherDetail = onWeatherDetail
+            )
+
+            DeviceSizeType.TABLET -> HomeScreenTablet(
+                state,
+                onSearch = onSearch,
+                onWeatherDetail = onWeatherDetail
+            )
         }
     }
 }
@@ -59,6 +75,7 @@ fun HomeScreen(
 fun HomeScreenPortrait(
     state: HomeUiState,
     onSearch: () -> Unit,
+    onWeatherDetail: (CurrentWeather) -> Unit,
 ) {
 
     Column(
@@ -85,7 +102,8 @@ fun HomeScreenPortrait(
             HomeScreenWeatherList(
                 modifier = Modifier.weight(1f),
                 deviceSizeType = DeviceSizeType.PORTRAIT,
-                data = state.weather
+                data = state.weather,
+                onWeatherDetail = onWeatherDetail
             )
         }
     }
@@ -95,6 +113,7 @@ fun HomeScreenPortrait(
 fun HomeScreenLandscape(
     state: HomeUiState,
     onSearch: () -> Unit,
+    onWeatherDetail: (CurrentWeather) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -117,7 +136,8 @@ fun HomeScreenLandscape(
         if (state.weather.isNotEmpty()) HomeScreenWeatherList(
             modifier = Modifier.weight(1f),
             deviceSizeType = DeviceSizeType.LANDSCAPE,
-            data = state.weather
+            data = state.weather,
+            onWeatherDetail = onWeatherDetail
         )
     }
 }
@@ -126,6 +146,7 @@ fun HomeScreenLandscape(
 fun HomeScreenTablet(
     state: HomeUiState,
     onSearch: () -> Unit,
+    onWeatherDetail: (CurrentWeather) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -148,7 +169,8 @@ fun HomeScreenTablet(
         if (state.weather.isNotEmpty()) HomeScreenWeatherList(
             modifier = Modifier.weight(1f),
             deviceSizeType = DeviceSizeType.TABLET,
-            data = state.weather
+            data = state.weather,
+            onWeatherDetail = onWeatherDetail
         )
     }
 }

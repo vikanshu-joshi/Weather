@@ -74,9 +74,11 @@ dependencies {
     implementation(AndroidX.lifecycleRuntimeKtx)
 
     implementation(Hilt.hilt)
+    implementation(Hilt.hiltNavigationCompose)
     kapt(Hilt.hiltCompiler)
 
     implementation(AndroidX.activityCompose)
+    implementation(AndroidX.navigationCompose)
 
     implementation(platform(Compose.composeBom))
     implementation(Compose.composeUi)

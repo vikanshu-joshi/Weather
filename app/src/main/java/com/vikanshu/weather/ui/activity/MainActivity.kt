@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.google.gson.Gson
 import com.vikanshu.core_ui.ConnectivityObserver
 import com.vikanshu.core_ui.DeviceSizeType
@@ -26,6 +27,7 @@ import com.vikanshu.data.repository.WeatherRepository
 import com.vikanshu.detail.DetailScreen
 import com.vikanshu.home.HomeScreen
 import com.vikanshu.search.SearchScreen
+import com.vikanshu.weather.ui.navigation.WeatherNavigation
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -34,7 +36,6 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var connectivityObserver: ConnectivityObserver
-
 
     @Inject
     lateinit var weatherRepository: WeatherRepository
@@ -52,16 +53,8 @@ class MainActivity : ComponentActivity() {
                 val deviceType =
                     DeviceSizeType.calculateFromWindowSizeClass(calculateWindowSizeClass(activity = this))
 
-                var state by remember {
-                    mutableStateOf<CurrentWeather?>(null)
-                }
-
-                LaunchedEffect(key1 = true) {
-                    state = weatherRepository.getWeatherFromDB("Gurgaon")
-                }
-
                 Column {
-                    if (state != null) DetailScreen(modifier = Modifier.fillMaxSize(), deviceSizeType = deviceType, currentWeather = state!!)
+                    WeatherNavigation(modifier = Modifier.weight(1f), deviceSizeType = deviceType)
                     AnimatedVisibility(visible = connectivityState.value == ConnectivityObserver.Status.NetworkUnavailable) {
                         NetworkNotAvailableTile(modifier = Modifier.animateContentSize())
                     }

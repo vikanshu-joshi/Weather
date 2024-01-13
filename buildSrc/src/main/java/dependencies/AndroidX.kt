@@ -9,6 +9,9 @@ object AndroidX {
     private const val activityComposeVersion = "1.8.2"
     const val activityCompose = "androidx.activity:activity-compose:$activityComposeVersion"
 
+    private const val navigationComposeVersion = "2.7.6"
+    const val navigationCompose = "androidx.navigation:navigation-compose:$navigationComposeVersion"
+
     private const val appCompatVersion = "1.6.1"
     const val appCompat = "androidx.appcompat:appcompat:$appCompatVersion"
     const val activity = "androidx.activity:activity:$appCompatVersion"

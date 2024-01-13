@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.vikanshu.core_ui.DeviceSizeType
+import com.vikanshu.data.local.entity.CurrentWeather
 import com.vikanshu.home.HomeUiState
 
 
@@ -22,18 +23,20 @@ import com.vikanshu.home.HomeUiState
 fun HomeScreenWeatherList(
     modifier: Modifier = Modifier,
     deviceSizeType: DeviceSizeType,
+    onWeatherDetail: (CurrentWeather) -> Unit,
     data: List<HomeUiState.WeatherCardState>,
 ) {
     when (deviceSizeType) {
-        DeviceSizeType.PORTRAIT -> HomeScreenVerticalWeatherList(modifier, data)
-        DeviceSizeType.LANDSCAPE -> HomeScreenHorizontalWeatherList(modifier, data)
-        DeviceSizeType.TABLET -> HomeScreenGridWeatherList(modifier, data)
+        DeviceSizeType.PORTRAIT -> HomeScreenVerticalWeatherList(modifier, data = data, onWeatherDetail = onWeatherDetail)
+        DeviceSizeType.LANDSCAPE -> HomeScreenHorizontalWeatherList(modifier, data = data, onWeatherDetail = onWeatherDetail)
+        DeviceSizeType.TABLET -> HomeScreenGridWeatherList(modifier, data = data, onWeatherDetail = onWeatherDetail)
     }
 }
 
 @Composable
 private fun HomeScreenVerticalWeatherList(
     modifier: Modifier = Modifier,
+    onWeatherDetail: (CurrentWeather) -> Unit,
     data: List<HomeUiState.WeatherCardState>,
 ) {
     LazyColumn(modifier = modifier) {
@@ -45,7 +48,8 @@ private fun HomeScreenVerticalWeatherList(
                 modifier = Modifier.padding(horizontal = 20.dp),
                 isCurrentLocation = false,
                 location = data[it].location,
-                currentWeather = data[it].weather
+                currentWeather = data[it].weather,
+                onWeatherDetail = onWeatherDetail
             )
             Spacer(modifier = Modifier.height(18.dp))
         }
@@ -56,6 +60,7 @@ private fun HomeScreenVerticalWeatherList(
 @Composable
 private fun HomeScreenHorizontalWeatherList(
     modifier: Modifier = Modifier,
+    onWeatherDetail: (CurrentWeather) -> Unit,
     data: List<HomeUiState.WeatherCardState>,
 ) {
     LazyRow(
@@ -71,7 +76,8 @@ private fun HomeScreenHorizontalWeatherList(
                     .padding(vertical = 8.dp),
                 isCurrentLocation = false,
                 location = data[it].location,
-                currentWeather = data[it].weather
+                currentWeather = data[it].weather,
+                onWeatherDetail = onWeatherDetail
             )
             Spacer(modifier = Modifier.width(12.dp))
         }
@@ -82,6 +88,7 @@ private fun HomeScreenHorizontalWeatherList(
 @Composable
 private fun HomeScreenGridWeatherList(
     modifier: Modifier = Modifier,
+    onWeatherDetail: (CurrentWeather) -> Unit,
     data: List<HomeUiState.WeatherCardState>,
 ) {
 
@@ -97,7 +104,8 @@ private fun HomeScreenGridWeatherList(
                 modifier = Modifier.padding(horizontal = 18.dp, vertical = 12.dp),
                 isCurrentLocation = false,
                 location = data[it].location,
-                currentWeather = data[it].weather
+                currentWeather = data[it].weather,
+                onWeatherDetail = onWeatherDetail
             )
         }
     }
