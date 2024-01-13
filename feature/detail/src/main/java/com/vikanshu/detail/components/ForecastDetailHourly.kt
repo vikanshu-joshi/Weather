@@ -26,40 +26,32 @@ import java.util.Locale
 fun ForecastDetailHourly(
     hour: ForecastHour
 ) {
-    Card(
-        modifier = Modifier.padding(horizontal = 8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(13.dp))
-            Text(
-                text = SimpleDateFormat("hh aa", Locale.getDefault()).format(hour.time),
-                modifier = Modifier.padding(horizontal = 12.dp),
-                fontFamily = SfDisplayProFontFamily,
-                fontWeight = FontWeight.Bold,
-                fontSize = 12.sp,
-            )
-            Spacer(modifier = Modifier.height(13.dp))
-            AsyncImage(
-                modifier = Modifier.size(35.dp),
-                model = hour.weatherIcon,
-                contentDescription = ""
-            )
-            Spacer(modifier = Modifier.height(13.dp))
-            Text(
-                text = "${hour.tempC}°",
-                fontFamily = SfDisplayProFontFamily,
-                fontWeight = FontWeight.Bold,
-                fontSize = 12.sp,
-                color = Color.Black
-            )
-            Spacer(modifier = Modifier.height(13.dp))
-        }
+        Text(
+            text = SimpleDateFormat("haa", Locale.getDefault()).format(hour.time),
+            modifier = Modifier.padding(horizontal = 12.dp),
+            fontFamily = SfDisplayProFontFamily,
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        AsyncImage(
+            modifier = Modifier.size(35.dp),
+            model = hour.weatherIcon,
+            contentDescription = ""
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = "${hour.tempC}°",
+            fontFamily = SfDisplayProFontFamily,
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp,
+            color = Color.Black
+        )
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
