@@ -45,7 +45,6 @@ Welcome to the Weather Jetpack Compose application repository! This Android app 
 
 - Add Dark/Light theme feature.
 - Add support for foldable phones.
-- Add feature - weather info for current location (if the user doesn't allow permission then use IP address-based location).
 - Add feature - Everyday notification at 9 PM for the next day's weather updates. Using work manager.
 - Add feature - Everyday notification at 9 AM for today's AQI updates. Using work manager.
 
