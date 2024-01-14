@@ -1,4 +1,4 @@
-package com.vikanshu.home
+package com.vikanshu.home.screen
 
 import com.vikanshu.data.local.entity.CurrentWeather
 import com.vikanshu.data.local.entity.Location

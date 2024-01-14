@@ -18,8 +18,8 @@ class WeatherRepositoryImpl(
     private val weatherDao: CurrentWeatherDao,
     private val weatherApi: WeatherApi
 ) : WeatherRepository {
-    override suspend fun getWeatherFromDB(names: List<String>): List<CurrentWeather> {
-        return weatherDao.getSavedWeatherByNames(names)
+    override suspend fun getWeatherFromDB(name: List<String>): List<CurrentWeather> {
+        return weatherDao.getSavedWeatherByNames(name)
     }
 
     override suspend fun getWeatherFromDB(name: String): CurrentWeather? {

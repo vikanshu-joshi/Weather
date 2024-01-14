@@ -1,4 +1,4 @@
-package com.vikanshu.home
+package com.vikanshu.home.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -43,8 +43,8 @@ fun HomeScreen(
 
     val state by homeViewModel.uiState.collectAsState()
 
-    LaunchedEffect(key1 = Unit, key2 = connectivityState) {
-        homeViewModel.initializeData()
+    LaunchedEffect(key1 = connectivityState) {
+        homeViewModel.init()
     }
 
     Scaffold(

@@ -3,7 +3,6 @@ package com.vikanshu.home.components
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -16,7 +15,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.data.local.entity.CurrentWeather
-import com.vikanshu.home.HomeUiState
+import com.vikanshu.home.screen.HomeUiState
 
 
 @Composable

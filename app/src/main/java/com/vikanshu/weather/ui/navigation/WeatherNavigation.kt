@@ -13,7 +13,7 @@ import androidx.navigation.navArgument
 import com.vikanshu.core_ui.ConnectivityObserver
 import com.vikanshu.core_ui.DeviceSizeType
 import com.vikanshu.detail.DetailScreen
-import com.vikanshu.home.HomeScreen
+import com.vikanshu.home.screen.HomeScreen
 import com.vikanshu.search.SearchScreen
 
 @Composable

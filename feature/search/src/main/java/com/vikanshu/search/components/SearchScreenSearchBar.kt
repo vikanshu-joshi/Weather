@@ -48,6 +48,7 @@ fun SearchScreenSearchBar(
                 unfocusedPlaceholderColor = colorA6A6A6,
                 focusedIndicatorColor = Color.Black,
                 unfocusedIndicatorColor = Color.Black,
+                disabledTextColor = Color.Black,
                 cursorColor = Color.Black
             )
         ),
