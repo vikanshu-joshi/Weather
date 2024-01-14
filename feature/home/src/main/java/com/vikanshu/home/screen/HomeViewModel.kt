@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
     var uiState = MutableStateFlow(
         HomeUiState(
             isLoading = false,
-            message = "",
+            message = "Loading...",
             weather = emptyList()
         )
     )
@@ -41,7 +41,15 @@ class HomeViewModel @Inject constructor(
 
 
     private fun loadData() {
+        if (uiState.value.isLoading) return
         viewModelScope.launch(ioDispatcher) {
+            uiState.emit(
+                HomeUiState(
+                    isLoading = true,
+                    message = "Loading...",
+                    weather = uiState.value.weather
+                )
+            )
             savedLocations = locationRepository.getSavedLocations()
             getCurrentWeatherInformationUseCase.invoke(savedLocations).map {
                 HomeUiState(

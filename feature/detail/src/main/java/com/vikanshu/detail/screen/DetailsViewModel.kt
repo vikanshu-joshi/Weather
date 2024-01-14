@@ -2,14 +2,12 @@ package com.vikanshu.detail.screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vikanshu.data.repository.ForecastRepository
 import com.vikanshu.data.repository.WeatherRepository
 import com.vikanshu.data.resource.CommunicationResult
 import com.vikanshu.detail.usecase.GetAstroDetailsUseCase
 import com.vikanshu.detail.usecase.GetForecastDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
@@ -31,7 +29,7 @@ class DetailsViewModel @Inject constructor(
     var uiState = MutableStateFlow(
         DetailScreenUiState(
             isLoading = false,
-            message = "",
+            message = "Loading...",
             forecast = null,
             astro = null,
             currentWeather = null
@@ -41,15 +39,23 @@ class DetailsViewModel @Inject constructor(
 
 
     fun loadData(name: String) {
-        viewModelScope.launch(ioDispatcher) {
-            this@DetailsViewModel.name = name
-            fetchForecastData()
-        }
+        this.name = name
+        fetchForecastData()
     }
 
     fun fetchForecastData() {
         if (uiState.value.isLoading) return
         viewModelScope.launch(ioDispatcher) {
+
+            uiState.emit(
+                DetailScreenUiState(
+                    isLoading = true,
+                    message = "Loading...",
+                    forecast = uiState.value.forecast,
+                    astro = uiState.value.astro,
+                    currentWeather = uiState.value.currentWeather
+                )
+            )
 
             val currentWeather = weatherRepository.getWeatherFromDB(name)
             val astroDetails = getAstroDetailsUseCase.invoke(name)
