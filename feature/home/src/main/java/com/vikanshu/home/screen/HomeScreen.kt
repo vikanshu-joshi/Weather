@@ -43,7 +43,7 @@ fun HomeScreen(
 
     val state by homeViewModel.uiState.collectAsState()
 
-    LaunchedEffect(key1 = connectivityState) {
+    LaunchedEffect(key1 = true, key2 = connectivityState) {
         homeViewModel.init()
     }
 

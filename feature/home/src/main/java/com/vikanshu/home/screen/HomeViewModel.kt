@@ -2,16 +2,12 @@ package com.vikanshu.home.screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vikanshu.data.local.entity.CurrentWeather
 import com.vikanshu.data.local.entity.Location
 import com.vikanshu.data.repository.LocationRepository
 import com.vikanshu.data.resource.CommunicationResult
 import com.vikanshu.home.usecase.GetCurrentWeatherInformationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
