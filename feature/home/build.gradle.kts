@@ -42,6 +42,7 @@ kapt {
 dependencies {
 
     implementation(project(":data"))
+    implementation(project(":utility"))
     implementation(project(":core-ui"))
 
     implementation(AndroidX.coreKtx)

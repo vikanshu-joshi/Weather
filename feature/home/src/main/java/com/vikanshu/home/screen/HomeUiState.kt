@@ -5,6 +5,7 @@ import com.vikanshu.data.local.entity.Location
 
 data class HomeUiState(
     val isLoading: Boolean,
+    val showGpsDialog: Boolean,
     val message: String,
     val weather: List<WeatherCardState>
 ) {

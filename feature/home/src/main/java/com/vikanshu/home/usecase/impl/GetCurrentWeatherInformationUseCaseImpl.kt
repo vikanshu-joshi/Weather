@@ -6,13 +6,9 @@ import com.vikanshu.data.repository.WeatherRepository
 import com.vikanshu.data.resource.CommunicationResult
 import com.vikanshu.home.usecase.GetCurrentWeatherInformationUseCase
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
 
 class GetCurrentWeatherInformationUseCaseImpl(
     private val ioDispatcher: CoroutineDispatcher,

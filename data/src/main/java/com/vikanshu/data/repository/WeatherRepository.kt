@@ -8,7 +8,8 @@ interface WeatherRepository {
     suspend fun getWeatherFromDB(name: List<String>): List<CurrentWeather>
     suspend fun getWeatherFromDB(name: String): CurrentWeather?
     suspend fun getCurrentWeather(
-        name: String
+        name: String,
+        shouldSaveLocally: Boolean = true
     ): CommunicationResult<CurrentWeather>
     suspend fun getAstroDetails(
         name: String

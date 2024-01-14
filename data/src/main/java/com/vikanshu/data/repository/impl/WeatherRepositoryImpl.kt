@@ -26,7 +26,7 @@ class WeatherRepositoryImpl(
         return weatherDao.getSavedWeatherByName(name)
     }
 
-    override suspend fun getCurrentWeather(name: String): CommunicationResult<CurrentWeather> {
+    override suspend fun getCurrentWeather(name: String, shouldSaveLocally: Boolean): CommunicationResult<CurrentWeather> {
         return withContext(ioDispatcher) {
             val result = apiCall(operation = {
                 weatherApi.getCurrentWeather(name)
@@ -35,7 +35,7 @@ class WeatherRepositoryImpl(
             }, isValidResponse = {
                 it != null
             })
-            if (result is CommunicationResult.Success) weatherDao.insertWeather(result.data)
+            if (result is CommunicationResult.Success && shouldSaveLocally) weatherDao.insertWeather(result.data)
             result
         }
     }

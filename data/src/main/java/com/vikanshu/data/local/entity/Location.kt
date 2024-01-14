@@ -1,6 +1,7 @@
 package com.vikanshu.data.local.entity
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.Gson
 import com.vikanshu.data.dto.LocationDto
@@ -11,8 +12,11 @@ data class Location(
     var region: String,
     var country: String,
     var lat: Double,
-    var lon: Double
+    var lon: Double,
 ) {
+    @Ignore
+    var isUserCurrentLocation: Boolean = false
+
     fun toJson(): String {
         return Gson().toJson(this)
     }

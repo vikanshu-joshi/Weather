@@ -40,12 +40,12 @@ private fun HomeScreenVerticalWeatherList(
 ) {
     LazyColumn(modifier = modifier) {
         items(count = data.size, key = {
-            data[it].location.name
+            "${data[it].location.lat},${data[it].location.lat},${data[it].location.name}"
         }) {
             Spacer(modifier = Modifier.height(4.dp))
             HomeScreenWeatherCard(
                 modifier = Modifier.padding(horizontal = 20.dp),
-                isCurrentLocation = false,
+                isCurrentLocation = data[it].location.isUserCurrentLocation,
                 location = data[it].location,
                 currentWeather = data[it].weather,
                 onWeatherDetail = onWeatherDetail
@@ -67,13 +67,13 @@ private fun HomeScreenHorizontalWeatherList(
         verticalAlignment = Alignment.CenterVertically
     ) {
         items(count = data.size, key = {
-            data[it].location.name
+            "${data[it].location.lat},${data[it].location.lat},${data[it].location.name}"
         }) {
             Spacer(modifier = Modifier.width(12.dp))
             HomeScreenWeatherCard(
                 modifier = Modifier
                     .padding(vertical = 8.dp),
-                isCurrentLocation = false,
+                isCurrentLocation = data[it].location.isUserCurrentLocation,
                 location = data[it].location,
                 currentWeather = data[it].weather,
                 onWeatherDetail = onWeatherDetail

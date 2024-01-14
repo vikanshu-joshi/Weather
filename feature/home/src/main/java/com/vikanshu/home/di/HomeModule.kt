@@ -2,7 +2,9 @@ package com.vikanshu.home.di
 
 import com.vikanshu.data.repository.WeatherRepository
 import com.vikanshu.home.usecase.GetCurrentWeatherInformationUseCase
+import com.vikanshu.home.usecase.GetCurrentWeatherLocationByUserLocationUseCase
 import com.vikanshu.home.usecase.impl.GetCurrentWeatherInformationUseCaseImpl
+import com.vikanshu.home.usecase.impl.GetCurrentWeatherLocationByUserLocationUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,8 +22,17 @@ class HomeModule {
     fun providesCurrentWeatherInformationUseCase(
         @Named("io") ioDispatcher: CoroutineDispatcher,
         weatherRepository: WeatherRepository
-    ) : GetCurrentWeatherInformationUseCase {
+    ): GetCurrentWeatherInformationUseCase {
         return GetCurrentWeatherInformationUseCaseImpl(ioDispatcher, weatherRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun providesCurrentWeatherByUserLocationUseCase(
+        @Named("io") ioDispatcher: CoroutineDispatcher,
+        weatherRepository: WeatherRepository
+    ): GetCurrentWeatherLocationByUserLocationUseCase {
+        return GetCurrentWeatherLocationByUserLocationUseCaseImpl(ioDispatcher, weatherRepository)
     }
 
 }

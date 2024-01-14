@@ -103,5 +103,4 @@ dependencies {
 
     implementation(Google.gson)
     implementation(Google.material)
-    implementation("com.google.android.gms:play-services-location:21.0.1")
 }

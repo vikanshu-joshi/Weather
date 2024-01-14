@@ -1,4 +1,4 @@
-package com.vikanshu.weather.utility
+package com.vikanshu.utility
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -70,7 +70,7 @@ class LocationHandler(
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 
-    private fun isPermissionGranted() = permissions.all {
+    fun isPermissionGranted() = permissions.all {
         ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
     }
 

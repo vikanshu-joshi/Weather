@@ -13,9 +13,11 @@ import androidx.compose.ui.unit.dp
 import com.vikanshu.core_ui.ui.colorE8E8E8
 
 @Composable
-fun UiLoader() {
+fun UiLoader(
+    modifier: Modifier = Modifier
+) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(top = 32.dp),
         contentAlignment = Alignment.Center

@@ -22,7 +22,7 @@ suspend fun <DTO, ENTITY> apiCall(
         CommunicationResult.Error(
             error = CommunicationError(
                 errorType = CommunicationErrorType.NO_INTERNET,
-                errorMessage = "No Internet"
+                errorMessage = e.localizedMessage ?: "No Internet"
             )
         )
     } catch (e: HttpException) {
