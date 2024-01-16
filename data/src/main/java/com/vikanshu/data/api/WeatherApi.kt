@@ -6,10 +6,12 @@ import com.vikanshu.data.dto.search.ResponseSearchLocation
 import com.vikanshu.data.resource.Constants
 import com.vikanshu.data.dto.current.ResponseCurrentWeather
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface WeatherApi {
 
+    @Headers("Cache-Control: public, max-age=3600")
     @GET("current.json")
     suspend fun getCurrentWeather(
         @Query("q") q: String,
@@ -17,6 +19,7 @@ interface WeatherApi {
         @Query("key") key: String = Constants.WEATHER_API_KEY
     ): ResponseCurrentWeather?
 
+    @Headers("Cache-Control: public, max-age=86400")
     @GET("forecast.json")
     suspend fun getWeatherForecast(
         @Query("q") q: String,
@@ -33,7 +36,7 @@ interface WeatherApi {
         @Query("key") key: String = Constants.WEATHER_API_KEY
     ): List<ResponseSearchLocation>?
 
-
+    @Headers("Cache-Control: public, max-age=86400")
     @GET("astronomy.json")
     suspend fun astronomyDetails(
         @Query("q") q: String,

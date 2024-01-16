@@ -1,5 +1,6 @@
 package com.vikanshu.data.di
 
+import android.content.Context
 import com.vikanshu.data.api.WeatherApi
 import com.vikanshu.data.local.dao.CurrentWeatherDao
 import com.vikanshu.data.local.dao.ForecastDao
@@ -14,8 +15,10 @@ import com.vikanshu.data.resource.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -30,12 +33,15 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun providesWeatherApi(): WeatherApi {
+    fun providesWeatherApi(
+        @ApplicationContext context: Context
+    ): WeatherApi {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.apply {
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
         }
         val okHttpClient = OkHttpClient.Builder()
+            .cache(Cache(context.cacheDir, 5 * 1024 * 1024)) // 5 MB cache
             .addNetworkInterceptor(httpLoggingInterceptor)
             .connectTimeout(3, TimeUnit.SECONDS)
             .writeTimeout(3, TimeUnit.SECONDS)
