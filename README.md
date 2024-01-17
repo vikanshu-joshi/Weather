@@ -16,6 +16,7 @@ Welcome to the Weather Jetpack Compose application repository! This Android app 
 - **Local Data Storage:** Implements Room as a local database management system, storing and retrieving data for efficient offline functionality.
 - **Image Caching:** Integrates Coil for image loading and caching, enhancing performance when displaying weather-related images.
 - **Portrait and Landscape Support:** Ensures a consistent and visually appealing user experience in both portrait and landscape orientations.
+- **Every day notifications:** Notifies users every day in the morning regarding weather and AQI updates for the day. At 9 AM.
 
 
 ## Tech Stack
@@ -29,6 +30,7 @@ Welcome to the Weather Jetpack Compose application repository! This Android app 
 - [Kotlin Flow](https://kotlinlang.org/docs/flow.html) (reactive datastream)
 - [Hilt](https://dagger.dev/hilt/) (DI)
 - [Coil](https://coil-kt.github.io/coil/) (Image caching)
+- [Work Manager](https://developer.android.com/reference/androidx/work/WorkManager) (Scheduling Notifications for Weather updates)
 
 #### Local Persistence
 - [Room DB](https://developer.android.com/training/data-storage/room) (SQLite ORM)
@@ -45,9 +47,6 @@ Welcome to the Weather Jetpack Compose application repository! This Android app 
 
 - Add Dark/Light theme feature.
 - Add support for foldable phones.
-- Add feature - Everyday notification at 9 PM for the next day's weather updates. Using work manager.
-- Add feature - Everyday notification at 9 AM for today's AQI updates. Using work manager.
-
 
 ### Screenshots
 |          |             |                |
