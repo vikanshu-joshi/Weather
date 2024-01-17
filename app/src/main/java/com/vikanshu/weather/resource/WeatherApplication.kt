@@ -33,13 +33,9 @@ class WeatherApplication : Application(), Configuration.Provider {
         super.onCreate()
         if (isLocationPermissionGranted() && areNotificationsEnabled()) {
             locationHandler.fetchLocation()
+        } else {
+            WorkManager.getInstance(this).cancelAllWorkByTag(MorningAQIUpdateWorker.WORK_NAME)
         }
-        WorkManager.getInstance(this).getWorkInfosByTagLiveData(MorningAQIUpdateWorker.WORK_NAME)
-            .observeForever {
-                for (i in it) {
-                    Log.e("WeatherApplication", "WorkInfo: ${i.state} -> ${i.tags} -> ${i.periodicityInfo} -> ${i.nextScheduleTimeMillis} -> ${i.initialDelayMillis} -> ${i.outputData.keyValueMap}")
-                }
-            }
     }
 
     private fun areNotificationsEnabled(): Boolean {
