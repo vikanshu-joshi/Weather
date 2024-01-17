@@ -69,7 +69,9 @@ dependencies {
     implementation(Retrofit.logginInterceptor)
 
     implementation(Hilt.hilt)
+    kapt(Hilt.hiltAndroidCompiler)
     kapt(Hilt.hiltCompiler)
+    implementation(AndroidX.workManagerKtx)
 
     // room
     implementation(Room.room)

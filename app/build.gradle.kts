@@ -26,8 +26,8 @@ android {
     buildTypes {
         debug {
             isDebuggable = true
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -87,10 +87,14 @@ dependencies {
 
     implementation(Hilt.hilt)
     implementation(Hilt.hiltNavigationCompose)
+    implementation(Hilt.hiltWork)
+    kapt(Hilt.hiltAndroidCompiler)
     kapt(Hilt.hiltCompiler)
 
     implementation(AndroidX.activityCompose)
     implementation(AndroidX.navigationCompose)
+    implementation(AndroidX.workManager)
+    implementation(AndroidX.workManagerKtx)
 
     implementation(platform(Compose.composeBom))
     implementation(Compose.composeUi)

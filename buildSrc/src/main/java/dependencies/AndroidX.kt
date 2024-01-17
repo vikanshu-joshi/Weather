@@ -12,6 +12,10 @@ object AndroidX {
     private const val navigationComposeVersion = "2.7.6"
     const val navigationCompose = "androidx.navigation:navigation-compose:$navigationComposeVersion"
 
+    private const val workManagerVersion = "2.9.0"
+    const val workManager = "androidx.work:work-runtime:$workManagerVersion"
+    const val workManagerKtx = "androidx.work:work-runtime-ktx:$workManagerVersion"
+
     private const val appCompatVersion = "1.6.1"
     const val appCompat = "androidx.appcompat:appcompat:$appCompatVersion"
     const val activity = "androidx.activity:activity:$appCompatVersion"

@@ -44,7 +44,9 @@ dependencies {
     implementation(AndroidX.coreKtx)
 
     implementation(Hilt.hilt)
+    kapt(Hilt.hiltAndroidCompiler)
     kapt(Hilt.hiltCompiler)
+    implementation(AndroidX.workManagerKtx)
 
     implementation(platform(Compose.composeBom))
     implementation(Compose.composeUi)

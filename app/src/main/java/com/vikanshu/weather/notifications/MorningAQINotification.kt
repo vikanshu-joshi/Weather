@@ -26,11 +26,11 @@ class MorningAQINotification : AbstractNotifier<CurrentWeather>() {
     }
 
     override fun getNotificationTitle(data: CurrentWeather): String {
-        return "Today's temperature in ${data.location.name} is ${data.temp.tempC}°C"
+        return "${data.temp.tempC}°C in ${data.location.name}"
     }
 
     override fun getNotificationContent(data: CurrentWeather): String {
-        return "Air quality is ${data.airQuality.description}, Visibility upto ${data.visibility.visibilityKm} kms"
+        return "Air quality is ${data.airQuality.description}, Tap to see more"
     }
 
 }

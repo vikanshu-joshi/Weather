@@ -52,7 +52,9 @@ dependencies {
 
     implementation(Hilt.hilt)
     implementation(Hilt.hiltNavigationCompose)
+    kapt(Hilt.hiltAndroidCompiler)
     kapt(Hilt.hiltCompiler)
+    implementation(AndroidX.workManagerKtx)
 
     implementation(AndroidX.activityCompose)
 

@@ -45,8 +45,7 @@ class LocationHandler(
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
         if (!isPermissionGranted()) return
-        val fusedLocationClient: FusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(context)
+        val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location ->
                 if (location != null) {
@@ -54,9 +53,11 @@ class LocationHandler(
                 } else {
                     onError(LocationErrorCode.UNKNOWN)
                 }
+                return@addOnSuccessListener
             }
-            .addOnFailureListener { e ->
+            .addOnFailureListener { _ ->
                 onError(LocationErrorCode.UNKNOWN)
+                return@addOnFailureListener
             }
     }
 
