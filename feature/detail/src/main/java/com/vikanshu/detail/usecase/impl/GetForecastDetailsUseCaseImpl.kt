@@ -17,10 +17,6 @@ class GetForecastDetailsUseCaseImpl(
     override suspend fun invoke(name: String): Flow<CommunicationResult<Forecast>> {
         return flow {
             emit(CommunicationResult.Loading)
-
-            val localData = forecastRepository.getForecastFromDB(name)
-            if (localData != null) emit(CommunicationResult.LocalData(localData))
-
             val result = forecastRepository.getCurrentForecast(name)
             emit(result)
             return@flow

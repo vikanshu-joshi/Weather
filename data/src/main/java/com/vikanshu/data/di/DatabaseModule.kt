@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.vikanshu.data.local.dao.CurrentWeatherDao
 import com.vikanshu.data.local.dao.ForecastDao
 import com.vikanshu.data.local.dao.LocationDao
+import com.vikanshu.data.local.db.Migrations
 import com.vikanshu.data.local.db.WeatherDatabase
 import dagger.Module
 import dagger.Provides
@@ -26,7 +27,9 @@ class DatabaseModule {
             context = context,
             WeatherDatabase::class.java,
             "WeatherDB"
-        ).build()
+        )
+            .addMigrations(Migrations.MIGRATION_1_2)
+            .build()
     }
 
     @Provides

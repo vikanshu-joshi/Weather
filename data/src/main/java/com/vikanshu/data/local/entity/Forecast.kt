@@ -17,11 +17,16 @@ data class Forecast(
     val tempC: Double,
     val tempF: Double,
     val airQuality: AirQuality,
-    val forecastDays: List<ForecastDay>
+    val forecastDays: List<ForecastDay>,
+    val lastCacheUpdateTime: Date
 ) {
 
     @PrimaryKey
     var id = location.name
+
+    fun isValidInCache(): Boolean {
+        return System.currentTimeMillis() - lastCacheUpdateTime.time < 86400000
+    }
 
     companion object {
         fun fromForecastResponse(forecastDay: ResponseForecastWeather?): Forecast {
@@ -39,7 +44,8 @@ data class Forecast(
                 airQuality = AirQuality.fromCurrentDto(forecastDay?.current),
                 forecastDays = forecastDay?.forecast?.forecastday?.map {
                     ForecastDay.fromForecastDayDto(it)
-                } ?: emptyList()
+                } ?: emptyList(),
+                lastCacheUpdateTime = Date(System.currentTimeMillis())
             )
         }
     }

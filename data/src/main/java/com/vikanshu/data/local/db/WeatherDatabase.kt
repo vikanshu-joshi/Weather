@@ -12,7 +12,7 @@ import com.vikanshu.data.local.entity.Location
 
 @Database(
     entities = [Location::class, CurrentWeather::class, Forecast::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(value = [WeatherTyeConverters::class])
 abstract class WeatherDatabase: RoomDatabase() {

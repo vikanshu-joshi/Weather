@@ -27,31 +27,19 @@ data class CurrentWeather(
     val humidity: Double,
     val visibility: Visibility,
     val uvIndex: Double,
-    val airQuality: AirQuality
+    val airQuality: AirQuality,
+    val lastCacheUpdateTime: Date
 ) {
     @PrimaryKey
     var id = location.name
 
     fun toJson() = Gson().toJson(this)
 
+    fun isValidInCache(): Boolean {
+        return System.currentTimeMillis() - lastCacheUpdateTime.time < 3600000
+    }
+
     companion object {
-        fun getDummy(): CurrentWeather {
-            return CurrentWeather(
-                location = Location("Delhi", "India", "", 77.22, 88.2),
-                lastUpdated = Date(),
-                timestamp = Date(),
-                temp = Temperature(30.0, 30.0, 30.0, 30.0),
-                weatherDesc = "Clear",
-                weatherIcon = "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png",
-                wind = Wind(10.0, 10.0, 210.0, "SSW"),
-                pressure = Pressure(10.0, 10.0),
-                precipitation = Precipitation(10.0, 10.0),
-                humidity = 10.0,
-                visibility = Visibility(10.0, 10.0),
-                uvIndex = 10.0,
-                airQuality = AirQuality.Good
-            )
-        }
         fun fromJson(json: String) = Gson().fromJson(json, CurrentWeather::class.java)
         fun fromCurrentWeatherDto(current: ResponseCurrentWeather): CurrentWeather {
             return CurrentWeather(
@@ -67,7 +55,8 @@ data class CurrentWeather(
                 humidity = current.current?.humidity ?: 0.0,
                 visibility = Visibility.fromCurrentDto(current.current),
                 uvIndex = current.current?.uv ?: 0.0,
-                airQuality = AirQuality.fromCurrentDto(current.current)
+                airQuality = AirQuality.fromCurrentDto(current.current),
+                lastCacheUpdateTime = Date(System.currentTimeMillis())
             )
         }
     }

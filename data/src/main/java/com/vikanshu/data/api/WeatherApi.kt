@@ -19,7 +19,7 @@ interface WeatherApi {
         @Query("key") key: String = Constants.WEATHER_API_KEY
     ): ResponseCurrentWeather?
 
-    @Headers("Cache-Control: public, max-age=86400")
+    @Headers("Cache-Control: no-store")
     @GET("forecast.json")
     suspend fun getWeatherForecast(
         @Query("q") q: String,
@@ -29,7 +29,7 @@ interface WeatherApi {
         @Query("key") key: String = Constants.WEATHER_API_KEY
     ): ResponseForecastWeather?
 
-
+    @Headers("Cache-Control: no-store")
     @GET("search.json")
     suspend fun searchLocations(
         @Query("q") q: String,

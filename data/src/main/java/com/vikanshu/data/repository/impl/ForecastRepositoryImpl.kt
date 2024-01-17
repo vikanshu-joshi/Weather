@@ -16,12 +16,15 @@ class ForecastRepositoryImpl(
     private val weatherApi: WeatherApi
 ) : ForecastRepository {
 
-    override suspend fun getForecastFromDB(name: String): Forecast? {
-        return forecastDao.getSavedForecastByName(name)
-    }
-
     override suspend fun getCurrentForecast(name: String): CommunicationResult<Forecast> {
         return withContext(ioDispatcher) {
+
+            val localData = forecastDao.getSavedForecastByName(name)
+
+            if (localData != null && localData.isValidInCache()) {
+                return@withContext CommunicationResult.Success(localData)
+            }
+
             val result = apiCall(operation = {
                 weatherApi.getWeatherForecast(
                     q = name,
