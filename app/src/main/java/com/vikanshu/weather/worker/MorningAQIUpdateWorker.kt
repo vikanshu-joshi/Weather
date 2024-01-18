@@ -56,11 +56,9 @@ class MorningAQIUpdateWorker @AssistedInject constructor(
     }
 
     override suspend fun doWork(): Result {
-        Log.e(WORK_NAME, "doWork")
         val lat = inputData.getDouble(EXTRA_LAT, -1.0)
         val lon = inputData.getDouble(EXTRA_LON, -1.0)
         if (lat == -1.0 || lon == -1.0) {
-            Log.e(WORK_NAME, "Lat Long Error: $lat, $lon")
             return Result.failure(
                 Data.Builder()
                     .putDouble(EXTRA_LAT, lat)
@@ -71,7 +69,6 @@ class MorningAQIUpdateWorker @AssistedInject constructor(
         }
         val result = weatherRepository.getCurrentWeather("$lat,$lon")
         if (result is CommunicationResult.Error) {
-            Log.e(WORK_NAME, "Error: ${result.error.errorMessage}")
             return Result.retry()
         }
         sendNotification((result as CommunicationResult.Success).data)
