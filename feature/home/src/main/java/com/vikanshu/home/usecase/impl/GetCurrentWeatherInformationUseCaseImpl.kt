@@ -6,6 +6,10 @@ import com.vikanshu.data.repository.WeatherRepository
 import com.vikanshu.data.resource.CommunicationResult
 import com.vikanshu.home.usecase.GetCurrentWeatherInformationUseCase
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -34,20 +38,24 @@ class GetCurrentWeatherInformationUseCaseImpl(
             /**
              * fetching data from remote
              * */
-            val requests = mutableListOf<CommunicationResult<CurrentWeather>>()
+            val requests = mutableListOf<Deferred<CommunicationResult<CurrentWeather>>>()
             for (i in locations) {
-                val result = weatherRepository.getCurrentWeather(i.name)
-                requests.add(result)
+                coroutineScope {
+                    val result = async { weatherRepository.getCurrentWeather(i.name) }
+                    requests.add(result)
+                }
             }
 
-            requests.firstOrNull { it is CommunicationResult.Error }?.let {
+            val results = requests.awaitAll()
+
+            results.firstOrNull { it is CommunicationResult.Error }?.let {
                 emit(it as CommunicationResult.Error)
                 return@flow
             }
 
             emit(
                 CommunicationResult.Success(
-                    requests.associateBy(
+                    results.associateBy(
                         {
                             (it as CommunicationResult.Success).data.location
                         },
